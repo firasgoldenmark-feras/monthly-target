@@ -1,0 +1,1939 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>الهدف الشهري — Golden Mark</title>
+<meta name="theme-color" content="#8B1A1A">
+<link rel="manifest" href="manifest.json">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --red: #8B1A1A;
+    --red-dark: #6B1212;
+    --red-light: #A52020;
+    --gold: #C9A227;
+    --gold-light: #E4B830;
+    --gold-pale: #F5E6B0;
+    --bg: #0F0A0A;
+    --bg2: #1A1010;
+    --bg3: #221515;
+    --card: #1E1212;
+    --border: #3A2020;
+    --text: #F5EDE0;
+    --text2: #C4A882;
+    --text3: #8A6E56;
+    --green: #2E7D52;
+    --green-light: #3DA568;
+    --yellow: #B8860B;
+    --yellow-light: #DAA520;
+    --danger: #C0392B;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Cairo', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ========== LOGIN ========== */
+  #loginScreen {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: 
+      radial-gradient(ellipse at 20% 50%, rgba(139,26,26,0.15) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 20%, rgba(201,162,39,0.08) 0%, transparent 50%),
+      var(--bg);
+    padding: 20px;
+  }
+
+  .login-box {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 40px 32px;
+    width: 100%;
+    max-width: 380px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5), 0 0 0 1px rgba(201,162,39,0.1);
+  }
+
+  .login-logo {
+    text-align: center;
+    margin-bottom: 32px;
+  }
+
+  .login-logo .logo-circle {
+    width: 72px;
+    height: 72px;
+    background: linear-gradient(135deg, var(--red), var(--red-dark));
+    border-radius: 18px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 32px;
+    margin-bottom: 12px;
+    box-shadow: 0 8px 24px rgba(139,26,26,0.4);
+  }
+
+  .login-logo h1 {
+    font-size: 22px;
+    font-weight: 900;
+    color: var(--text);
+    letter-spacing: 0.5px;
+  }
+
+  .login-logo p {
+    font-size: 12px;
+    color: var(--gold);
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-top: 4px;
+  }
+
+  .form-group {
+    margin-bottom: 16px;
+  }
+
+  .form-group label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text2);
+    margin-bottom: 8px;
+  }
+
+  .form-group input {
+    width: 100%;
+    background: var(--bg2);
+    border: 1.5px solid var(--border);
+    border-radius: 12px;
+    padding: 13px 16px;
+    color: var(--text);
+    font-family: 'Cairo', sans-serif;
+    font-size: 15px;
+    transition: border-color 0.2s;
+    outline: none;
+  }
+
+  .form-group input:focus {
+    border-color: var(--gold);
+  }
+
+  .remember-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 24px;
+    font-size: 13px;
+    color: var(--text2);
+    cursor: pointer;
+  }
+
+  .remember-row input[type=checkbox] {
+    width: 18px;
+    height: 18px;
+    accent-color: var(--gold);
+    cursor: pointer;
+  }
+
+  .btn-login {
+    width: 100%;
+    background: linear-gradient(135deg, var(--red), var(--red-dark));
+    color: white;
+    border: none;
+    border-radius: 12px;
+    padding: 14px;
+    font-family: 'Cairo', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s;
+    box-shadow: 0 4px 16px rgba(139,26,26,0.4);
+  }
+
+  .btn-login:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(139,26,26,0.5); }
+  .btn-login:active { transform: translateY(0); }
+
+  .login-error {
+    background: rgba(192,57,43,0.15);
+    border: 1px solid rgba(192,57,43,0.3);
+    border-radius: 10px;
+    padding: 10px 14px;
+    font-size: 13px;
+    color: #FF6B6B;
+    margin-bottom: 16px;
+    display: none;
+  }
+
+  /* ========== APP SHELL ========== */
+  #appShell { display: none; min-height: 100vh; }
+
+  /* TOP BAR */
+  .topbar {
+    background: var(--card);
+    border-bottom: 1px solid var(--border);
+    padding: 0 16px;
+    height: 58px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  .topbar-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .topbar-logo .icon {
+    width: 36px;
+    height: 36px;
+    background: linear-gradient(135deg, var(--red), var(--red-dark));
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+  }
+
+  .topbar-logo span {
+    font-size: 16px;
+    font-weight: 900;
+    color: var(--text);
+  }
+
+  .topbar-right {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .month-badge {
+    background: rgba(201,162,39,0.12);
+    border: 1px solid rgba(201,162,39,0.25);
+    color: var(--gold);
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 700;
+  }
+
+  .btn-icon {
+    width: 36px;
+    height: 36px;
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 16px;
+    transition: all 0.2s;
+    color: var(--text2);
+  }
+  .btn-icon:hover { background: var(--border); }
+
+  /* BOTTOM NAV */
+  .bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: var(--card);
+    border-top: 1px solid var(--border);
+    display: flex;
+    z-index: 100;
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+
+  .nav-item {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px 4px 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+    color: var(--text3);
+    font-size: 10px;
+    gap: 4px;
+    border: none;
+    background: none;
+    font-family: 'Cairo', sans-serif;
+  }
+
+  .nav-item .nav-icon { font-size: 20px; transition: transform 0.2s; }
+  .nav-item.active { color: var(--gold); }
+  .nav-item.active .nav-icon { transform: scale(1.15); }
+
+  /* MAIN CONTENT */
+  .main-content {
+    padding: 16px;
+    padding-bottom: 80px;
+  }
+
+  /* PAGES */
+  .page { display: none; }
+  .page.active { display: block; }
+
+  /* ========== DASHBOARD ========== */
+  .page-title {
+    font-size: 20px;
+    font-weight: 900;
+    color: var(--text);
+    margin-bottom: 16px;
+  }
+
+  /* شريط التقدم الشهري */
+  .month-progress-card {
+    background: linear-gradient(135deg, var(--red-dark), var(--red));
+    border-radius: 16px;
+    padding: 18px;
+    margin-bottom: 16px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .month-progress-card::before {
+    content: '';
+    position: absolute;
+    top: -20px; right: -20px;
+    width: 120px; height: 120px;
+    background: rgba(255,255,255,0.05);
+    border-radius: 50%;
+  }
+
+  .month-progress-card .month-name {
+    font-size: 13px;
+    color: rgba(255,255,255,0.7);
+    margin-bottom: 6px;
+  }
+
+  .month-progress-card .days-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+  }
+
+  .month-progress-card .days-passed {
+    font-size: 28px;
+    font-weight: 900;
+    color: white;
+  }
+
+  .month-progress-card .days-label {
+    font-size: 11px;
+    color: rgba(255,255,255,0.6);
+  }
+
+  .month-progress-card .days-left {
+    text-align: left;
+    font-size: 14px;
+    color: var(--gold-light);
+    font-weight: 700;
+  }
+
+  .progress-bar-wrap {
+    background: rgba(0,0,0,0.2);
+    border-radius: 8px;
+    height: 8px;
+    overflow: hidden;
+  }
+
+  .progress-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--gold-light), var(--gold));
+    border-radius: 8px;
+    transition: width 1s ease;
+  }
+
+  /* بطاقات الملخص */
+  .summary-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 16px;
+  }
+
+  .summary-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 14px;
+  }
+
+  .summary-card .s-label {
+    font-size: 11px;
+    color: var(--text3);
+    margin-bottom: 6px;
+    font-weight: 600;
+  }
+
+  .summary-card .s-value {
+    font-size: 26px;
+    font-weight: 900;
+  }
+
+  .summary-card .s-sub {
+    font-size: 11px;
+    color: var(--text3);
+    margin-top: 2px;
+  }
+
+  .s-green { color: var(--green-light); }
+  .s-red { color: #E74C3C; }
+  .s-gold { color: var(--gold); }
+  .s-blue { color: #5DADE2; }
+
+  /* قسم التنبيهات */
+  .section-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text2);
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .alert-card {
+    background: rgba(192,57,43,0.1);
+    border: 1px solid rgba(192,57,43,0.25);
+    border-radius: 12px;
+    padding: 12px 14px;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .alert-card .alert-name {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text);
+    flex: 1;
+  }
+
+  .alert-card .alert-pct {
+    font-size: 18px;
+    font-weight: 900;
+    color: #E74C3C;
+  }
+
+  /* بطاقات المناديب */
+  .agents-list { display: flex; flex-direction: column; gap: 10px; }
+
+  .agent-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 14px;
+    cursor: pointer;
+    transition: all 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .agent-card:hover { border-color: var(--gold); }
+
+  .agent-card .agent-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+
+  .agent-card .agent-name {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text);
+  }
+
+  .agent-card .agent-pct {
+    font-size: 22px;
+    font-weight: 900;
+  }
+
+  .agent-card .agent-bar {
+    background: var(--bg3);
+    border-radius: 6px;
+    height: 6px;
+    overflow: hidden;
+    margin-bottom: 8px;
+  }
+
+  .agent-card .agent-bar-fill {
+    height: 100%;
+    border-radius: 6px;
+    transition: width 1s ease;
+  }
+
+  .agent-card .agent-footer {
+    display: flex;
+    justify-content: space-between;
+    font-size: 11px;
+    color: var(--text3);
+  }
+
+  .status-green .agent-pct { color: var(--green-light); }
+  .status-green .agent-bar-fill { background: var(--green-light); }
+  .status-yellow .agent-pct { color: var(--yellow-light); }
+  .status-yellow .agent-bar-fill { background: var(--yellow-light); }
+  .status-red .agent-pct { color: #E74C3C; }
+  .status-red .agent-bar-fill { background: #E74C3C; }
+
+  /* ========== AGENTS PAGE ========== */
+  .btn-primary {
+    background: linear-gradient(135deg, var(--red), var(--red-dark));
+    color: white;
+    border: none;
+    border-radius: 12px;
+    padding: 12px 20px;
+    font-family: 'Cairo', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s;
+    box-shadow: 0 4px 12px rgba(139,26,26,0.3);
+  }
+
+  .btn-primary:hover { transform: translateY(-1px); }
+
+  .btn-gold {
+    background: linear-gradient(135deg, var(--gold), #A07D1A);
+    color: #1A0A0A;
+    border: none;
+    border-radius: 12px;
+    padding: 12px 20px;
+    font-family: 'Cairo', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .btn-secondary {
+    background: var(--bg3);
+    color: var(--text2);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 12px 20px;
+    font-family: 'Cairo', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+  }
+
+  .agent-row {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 14px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .agent-row .agent-avatar {
+    width: 42px;
+    height: 42px;
+    background: var(--bg3);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    flex-shrink: 0;
+  }
+
+  .agent-row .agent-info { flex: 1; }
+  .agent-row .agent-info .a-name { font-size: 15px; font-weight: 700; }
+  .agent-row .agent-info .a-meta { font-size: 12px; color: var(--text3); margin-top: 2px; }
+
+  .agent-row .agent-actions {
+    display: flex;
+    gap: 6px;
+  }
+
+  .btn-sm {
+    padding: 7px 12px;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: 'Cairo', sans-serif;
+    border: none;
+    transition: all 0.2s;
+  }
+
+  .btn-edit { background: rgba(201,162,39,0.15); color: var(--gold); }
+  .btn-delete { background: rgba(192,57,43,0.15); color: #E74C3C; }
+
+  .badge-active {
+    background: rgba(46,125,82,0.15);
+    color: var(--green-light);
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 600;
+  }
+
+  .badge-inactive {
+    background: rgba(192,57,43,0.15);
+    color: #E74C3C;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 600;
+  }
+
+  /* ========== MODAL ========== */
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.7);
+    z-index: 200;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s;
+  }
+
+  .modal-overlay.open {
+    opacity: 1;
+    pointer-events: all;
+  }
+
+  .modal-box {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 24px 24px 0 0;
+    padding: 24px 20px 32px;
+    width: 100%;
+    max-width: 500px;
+    transform: translateY(100%);
+    transition: transform 0.3s ease;
+  }
+
+  .modal-overlay.open .modal-box {
+    transform: translateY(0);
+  }
+
+  .modal-handle {
+    width: 40px;
+    height: 4px;
+    background: var(--border);
+    border-radius: 2px;
+    margin: 0 auto 20px;
+  }
+
+  .modal-title {
+    font-size: 18px;
+    font-weight: 900;
+    color: var(--text);
+    margin-bottom: 20px;
+  }
+
+  .modal-footer {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+  }
+
+  .modal-footer button { flex: 1; }
+
+  /* ========== AGENT DETAIL ========== */
+  .detail-header {
+    background: linear-gradient(135deg, var(--red-dark), var(--red));
+    border-radius: 16px;
+    padding: 20px;
+    margin-bottom: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .detail-header .dh-name { font-size: 20px; font-weight: 900; color: white; }
+  .detail-header .dh-meta { font-size: 12px; color: rgba(255,255,255,0.6); margin-top: 4px; }
+  .detail-header .dh-pct { font-size: 36px; font-weight: 900; color: var(--gold-light); }
+
+  .tier-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 14px;
+    margin-bottom: 10px;
+  }
+
+  .tier-card .tier-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+  }
+
+  .tier-card .tier-name { font-size: 14px; font-weight: 700; }
+  .tier-card .tier-pct { font-size: 18px; font-weight: 900; }
+
+  .tier-card .tier-bar {
+    background: var(--bg3);
+    border-radius: 6px;
+    height: 8px;
+    overflow: hidden;
+    margin-bottom: 8px;
+  }
+
+  .tier-card .tier-bar-fill {
+    height: 100%;
+    border-radius: 6px;
+    transition: width 1s ease;
+  }
+
+  .tier-card .tier-stats {
+    display: flex;
+    justify-content: space-between;
+    font-size: 11px;
+    color: var(--text3);
+  }
+
+  .btn-whatsapp {
+    background: #25D366;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    padding: 14px;
+    font-family: 'Cairo', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: all 0.2s;
+  }
+
+  .btn-whatsapp:hover { transform: translateY(-1px); box-shadow: 0 4px 16px rgba(37,211,102,0.3); }
+
+  /* ========== EMPTY STATE ========== */
+  .empty-state {
+    text-align: center;
+    padding: 48px 20px;
+    color: var(--text3);
+  }
+
+  .empty-state .empty-icon { font-size: 48px; margin-bottom: 12px; }
+  .empty-state p { font-size: 14px; }
+
+  /* ========== TOAST ========== */
+  .toast {
+    position: fixed;
+    top: 70px;
+    left: 50%;
+    transform: translateX(-50%) translateY(-20px);
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 10px 20px;
+    font-size: 13px;
+    font-weight: 600;
+    z-index: 300;
+    opacity: 0;
+    transition: all 0.3s;
+    white-space: nowrap;
+  }
+
+  .toast.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+
+  .toast.success { border-color: var(--green-light); color: var(--green-light); }
+  .toast.error { border-color: #E74C3C; color: #E74C3C; }
+
+  /* ========== LOADING ========== */
+  .loading-spinner {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 2px solid rgba(255,255,255,0.3);
+    border-top-color: white;
+    border-radius: 50%;
+    animation: spin 0.7s linear infinite;
+  }
+
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  .skeleton {
+    background: linear-gradient(90deg, var(--bg3) 25%, var(--border) 50%, var(--bg3) 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+    border-radius: 8px;
+  }
+
+  @keyframes shimmer { to { background-position: -200% 0; } }
+
+  /* ========== SETTINGS PAGE ========== */
+  .settings-section {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    overflow: hidden;
+    margin-bottom: 16px;
+  }
+
+  .settings-section .section-header {
+    padding: 12px 16px;
+    background: var(--bg3);
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--text3);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  .settings-item {
+    padding: 14px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--border);
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+
+  .settings-item:last-child { border-bottom: none; }
+  .settings-item:hover { background: var(--bg3); }
+
+  .settings-item .si-left { display: flex; align-items: center; gap: 12px; }
+  .settings-item .si-icon { font-size: 20px; }
+  .settings-item .si-label { font-size: 14px; font-weight: 600; }
+  .settings-item .si-sub { font-size: 12px; color: var(--text3); margin-top: 2px; }
+  .settings-item .si-arrow { color: var(--text3); font-size: 18px; }
+
+  /* ========== RESPONSIVE ========== */
+  @media (max-width: 380px) {
+    .summary-grid { grid-template-columns: 1fr 1fr; }
+    .summary-card .s-value { font-size: 22px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div id="loginScreen">
+  <div class="login-box">
+    <div class="login-logo">
+      <div class="logo-circle">🎯</div>
+      <h1>الهدف الشهري</h1>
+      <p>Golden Mark</p>
+    </div>
+    <div class="login-error" id="loginError">اسم المستخدم أو كلمة المرور غير صحيحة</div>
+    <div class="form-group">
+      <label>اسم المستخدم</label>
+      <input type="text" id="loginUsername" placeholder="admin" autocomplete="username">
+    </div>
+    <div class="form-group">
+      <label>كلمة المرور</label>
+      <input type="password" id="loginPassword" placeholder="••••••••" autocomplete="current-password">
+    </div>
+    <label class="remember-row">
+      <input type="checkbox" id="rememberMe" checked>
+      تذكرني
+    </label>
+    <button class="btn-login" id="loginBtn" onclick="doLogin()">دخول</button>
+  </div>
+</div>
+
+<!-- APP SHELL -->
+<div id="appShell">
+  <!-- TOP BAR -->
+  <div class="topbar">
+    <div class="topbar-logo">
+      <div class="icon">🎯</div>
+      <span>الهدف الشهري</span>
+    </div>
+    <div class="topbar-right">
+      <div class="month-badge" id="currentMonthBadge">أبريل ٢٠٢٦</div>
+      <div class="btn-icon" onclick="doLogout()" title="خروج">🚪</div>
+    </div>
+  </div>
+
+  <!-- MAIN CONTENT -->
+  <div class="main-content">
+
+    <!-- DASHBOARD PAGE -->
+    <div class="page active" id="page-dashboard">
+      <div class="page-title">لوحة التحكم</div>
+
+      <!-- Month Progress -->
+      <div class="month-progress-card">
+        <div class="month-name" id="monthNameFull">أبريل ٢٠٢٦</div>
+        <div class="days-row">
+          <div>
+            <div class="days-passed" id="daysPassed">4</div>
+            <div class="days-label">يوم مضى</div>
+          </div>
+          <div class="days-left" id="daysLeftText">⏳ متبقي 26 يوم</div>
+        </div>
+        <div class="progress-bar-wrap">
+          <div class="progress-bar-fill" id="monthProgressBar" style="width:13%"></div>
+        </div>
+      </div>
+
+      <!-- Summary Cards -->
+      <div class="summary-grid">
+        <div class="summary-card">
+          <div class="s-label">إجمالي المناديب</div>
+          <div class="s-value s-gold" id="totalAgents">-</div>
+          <div class="s-sub">مندوب نشط</div>
+        </div>
+        <div class="summary-card">
+          <div class="s-label">حققوا الهدف</div>
+          <div class="s-value s-green" id="achievedAgents">-</div>
+          <div class="s-sub">فوق النسبة المطلوبة</div>
+        </div>
+        <div class="summary-card">
+          <div class="s-label">في الخطر</div>
+          <div class="s-value s-red" id="atRiskAgents">-</div>
+          <div class="s-sub">يحتاج متابعة</div>
+        </div>
+        <div class="summary-card">
+          <div class="s-label">متوسط الإنجاز</div>
+          <div class="s-value s-blue" id="avgAchievement">-</div>
+          <div class="s-sub">من الهدف الشهري</div>
+        </div>
+      </div>
+
+      <!-- At Risk Alerts -->
+      <div id="alertsSection" style="display:none; margin-bottom:16px;">
+        <div class="section-title">🔴 تنبيهات عاجلة</div>
+        <div id="alertsList"></div>
+      </div>
+
+      <!-- Agents Cards -->
+      <div class="section-title">👥 المناديب</div>
+      <div class="agents-list" id="dashAgentsList">
+        <div class="empty-state">
+          <div class="empty-icon">📊</div>
+          <p>لا توجد بيانات بعد<br>ارفع ملف الأهداف للبدء</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- AGENTS PAGE -->
+    <div class="page" id="page-agents">
+      <div class="page-header">
+        <div class="page-title">المناديب</div>
+        <button class="btn-primary" onclick="openAgentModal()">+ إضافة</button>
+      </div>
+      <div id="agentsList">
+        <div class="empty-state">
+          <div class="empty-icon">👤</div>
+          <p>لا يوجد مناديب بعد</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- AGENT DETAIL PAGE -->
+    <div class="page" id="page-detail">
+      <div style="margin-bottom:12px;">
+        <button class="btn-secondary" onclick="goBack()" style="padding:8px 16px; font-size:13px;">
+          ← رجوع
+        </button>
+      </div>
+      <div id="agentDetailContent"></div>
+    </div>
+
+    <!-- UPLOAD PAGE -->
+    <div class="page" id="page-upload">
+      <div class="page-title">رفع البيانات</div>
+      <div style="display:flex; flex-direction:column; gap:12px;">
+
+        <!-- Items File -->
+        <div class="settings-section">
+          <div class="section-header">ملف الأصناف (Items)</div>
+          <div style="padding:16px;">
+            <p style="font-size:12px; color:var(--text3); margin-bottom:12px;">يُرفع مرة واحدة — كود + اسم الصنف</p>
+            <input type="file" id="itemsFile" accept=".xlsx,.xls" style="display:none" onchange="handleItemsFile(this)">
+            <button class="btn-secondary" style="width:100%" onclick="document.getElementById('itemsFile').click()">
+              📂 اختر ملف الأصناف
+            </button>
+            <div id="itemsStatus" style="margin-top:8px; font-size:12px; color:var(--text3);"></div>
+          </div>
+        </div>
+
+        <!-- Tiers File -->
+        <div class="settings-section">
+          <div class="section-header">ملف الشرائح (Tiers)</div>
+          <div style="padding:16px;">
+            <p style="font-size:12px; color:var(--text3); margin-bottom:12px;">يُرفع مرة واحدة — اسم الشريحة + أكوادها</p>
+            <input type="file" id="tiersFile" accept=".xlsx,.xls" style="display:none" onchange="handleTiersFile(this)">
+            <button class="btn-secondary" style="width:100%" onclick="document.getElementById('tiersFile').click()">
+              📂 اختر ملف الشرائح
+            </button>
+            <div id="tiersStatus" style="margin-top:8px; font-size:12px; color:var(--text3);"></div>
+          </div>
+        </div>
+
+        <!-- Targets File -->
+        <div class="settings-section">
+          <div class="section-header">ملف الأهداف الشهرية</div>
+          <div style="padding:16px;">
+            <p style="font-size:12px; color:var(--text3); margin-bottom:12px;">يُرفع بداية كل شهر</p>
+            <input type="file" id="targetsFile" accept=".xlsx,.xls" style="display:none" onchange="handleTargetsFile(this)">
+            <button class="btn-secondary" style="width:100%" onclick="document.getElementById('targetsFile').click()">
+              📂 اختر ملف الأهداف
+            </button>
+            <div id="targetsStatus" style="margin-top:8px; font-size:12px; color:var(--text3);"></div>
+          </div>
+        </div>
+
+        <!-- Sales File -->
+        <div class="settings-section">
+          <div class="section-header">ملف المبيعات اليومية</div>
+          <div style="padding:16px;">
+            <p style="font-size:12px; color:var(--text3); margin-bottom:12px;">يُرفع يومياً — مندوب + كود + قيمة</p>
+            <input type="file" id="salesFile" accept=".xlsx,.xls" style="display:none" onchange="handleSalesFile(this)">
+            <button class="btn-secondary" style="width:100%" onclick="document.getElementById('salesFile').click()">
+              📂 اختر ملف المبيعات
+            </button>
+            <div id="salesStatus" style="margin-top:8px; font-size:12px; color:var(--text3);"></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- WHATSAPP PAGE -->
+    <div class="page" id="page-whatsapp">
+      <div class="page-header">
+        <div class="page-title">واتساب</div>
+        <button class="btn-gold" onclick="sendAllWhatsApp()" style="font-size:13px; padding:10px 14px;">
+          إرسال جماعي
+        </button>
+      </div>
+      <div id="whatsappList">
+        <div class="empty-state">
+          <div class="empty-icon">💬</div>
+          <p>لا توجد بيانات للإرسال</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- SETTINGS PAGE -->
+    <div class="page" id="page-settings">
+      <div class="page-title">الإعدادات</div>
+
+      <div class="settings-section">
+        <div class="section-header">الحساب</div>
+        <div class="settings-item" onclick="openChangePassword()">
+          <div class="si-left">
+            <span class="si-icon">🔑</span>
+            <div>
+              <div class="si-label">تغيير كلمة المرور</div>
+            </div>
+          </div>
+          <span class="si-arrow">›</span>
+        </div>
+        <div class="settings-item" onclick="doLogout()">
+          <div class="si-left">
+            <span class="si-icon">🚪</span>
+            <div>
+              <div class="si-label" style="color:#E74C3C;">تسجيل الخروج</div>
+            </div>
+          </div>
+          <span class="si-arrow">›</span>
+        </div>
+      </div>
+
+      <div class="settings-section">
+        <div class="section-header">عن التطبيق</div>
+        <div class="settings-item">
+          <div class="si-left">
+            <span class="si-icon">🏢</span>
+            <div>
+              <div class="si-label">Golden Mark</div>
+              <div class="si-sub">For Import & Export</div>
+            </div>
+          </div>
+        </div>
+        <div class="settings-item">
+          <div class="si-left">
+            <span class="si-icon">📱</span>
+            <div>
+              <div class="si-label">الإصدار</div>
+              <div class="si-sub">v1.0.0</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- end main-content -->
+
+  <!-- BOTTOM NAV -->
+  <nav class="bottom-nav">
+    <button class="nav-item active" onclick="showPage('dashboard', this)">
+      <span class="nav-icon">📊</span>
+      <span>الرئيسية</span>
+    </button>
+    <button class="nav-item" onclick="showPage('agents', this)">
+      <span class="nav-icon">👥</span>
+      <span>المناديب</span>
+    </button>
+    <button class="nav-item" onclick="showPage('upload', this)">
+      <span class="nav-icon">📤</span>
+      <span>رفع</span>
+    </button>
+    <button class="nav-item" onclick="showPage('whatsapp', this)">
+      <span class="nav-icon">💬</span>
+      <span>واتساب</span>
+    </button>
+    <button class="nav-item" onclick="showPage('settings', this)">
+      <span class="nav-icon">⚙️</span>
+      <span>إعدادات</span>
+    </button>
+  </nav>
+</div>
+
+<!-- AGENT MODAL -->
+<div class="modal-overlay" id="agentModal">
+  <div class="modal-box">
+    <div class="modal-handle"></div>
+    <div class="modal-title" id="agentModalTitle">إضافة مندوب</div>
+    <div class="form-group">
+      <label>الاسم</label>
+      <input type="text" id="agentName" placeholder="أحمد محمد">
+    </div>
+    <div class="form-group">
+      <label>واتساب</label>
+      <input type="tel" id="agentWhatsapp" placeholder="9665XXXXXXXX">
+    </div>
+    <div class="form-group">
+      <label>أيام العمل الشهرية</label>
+      <input type="number" id="agentWorkDays" placeholder="26" value="26" min="1" max="31">
+    </div>
+    <div class="modal-footer">
+      <button class="btn-secondary" onclick="closeModal('agentModal')">إلغاء</button>
+      <button class="btn-primary" onclick="saveAgent()">حفظ</button>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<!-- SheetJS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+
+<script>
+// ============================================
+// SUPABASE CONFIG
+// ============================================
+const SUPABASE_URL = 'https://jlxbcaxruvhpmrkaslqk.supabase.co';
+const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpseGJjYXhydXZocG1ya2FzbHFrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM2Mzg0NzQsImV4cCI6MjA4OTIxNDQ3NH0.MqU6lC7QsJb52BlLd99FVoz9qwysikAWMzUGs0r77nA';
+
+const headers = {
+  'Content-Type': 'application/json',
+  'apikey': SUPABASE_KEY,
+  'Authorization': `Bearer ${SUPABASE_KEY}`
+};
+
+async function db(table, method = 'GET', body = null, query = '') {
+  const url = `${SUPABASE_URL}/rest/v1/${table}${query}`;
+  const h = { ...headers };
+  if (method === 'POST') h['Prefer'] = 'return=minimal';
+  if (method === 'PATCH') h['Prefer'] = 'return=minimal';
+  if (method === 'DELETE') h['Prefer'] = 'return=minimal';
+  const opts = { method, headers: h };
+  if (body) opts.body = JSON.stringify(body);
+  const res = await fetch(url, opts);
+  if (!res.ok) {
+    let msg = 'DB error';
+    try { const err = await res.json(); msg = err.message || msg; } catch(e) {}
+    throw new Error(msg);
+  }
+  if (method === 'DELETE' || method === 'PATCH' || res.status === 204) return true;
+  const text = await res.text();
+  if (!text) return true;
+  return JSON.parse(text);
+}
+
+// ============================================
+// STATE
+// ============================================
+let currentUser = null;
+let editingAgentId = null;
+let agentsCache = [];
+let targetsCache = [];
+let salesCache = [];
+let tiersCache = [];
+let itemsCache = [];
+
+// ============================================
+// NORMALIZE (Arabic text normalization)
+// ============================================
+function normalize(str) {
+  if (!str) return '';
+  return String(str)
+    .trim()
+    .replace(/\s+/g, ' ')
+    .replace(/[أإآ]/g, 'ا')
+    .replace(/[٠-٩]/g, d => '٠١٢٣٤٥٦٧٨٩'.indexOf(d))
+    .replace(/ة/g, 'ه')
+    .replace(/ى/g, 'ي')
+    .toLowerCase();
+}
+
+// ============================================
+// AUTH
+// ============================================
+async function doLogin() {
+  const username = document.getElementById('loginUsername').value.trim();
+  const password = document.getElementById('loginPassword').value.trim();
+  const remember = document.getElementById('rememberMe').checked;
+  const btn = document.getElementById('loginBtn');
+  const errEl = document.getElementById('loginError');
+
+  if (!username || !password) { showLoginError('أدخل اسم المستخدم وكلمة المرور'); return; }
+
+  btn.innerHTML = '<span class="loading-spinner"></span>';
+  btn.disabled = true;
+  errEl.style.display = 'none';
+
+  try {
+    const users = await db('users', 'GET', null, `?username=eq.${encodeURIComponent(username)}&password_hash=eq.${encodeURIComponent(password)}`);
+    if (users.length === 0) {
+      showLoginError('اسم المستخدم أو كلمة المرور غير صحيحة');
+    } else {
+      currentUser = users[0];
+      if (remember) localStorage.setItem('gm_user', JSON.stringify(currentUser));
+      showApp();
+    }
+  } catch(e) {
+    showLoginError('خطأ في الاتصال: ' + e.message);
+  }
+
+  btn.innerHTML = 'دخول';
+  btn.disabled = false;
+}
+
+function showLoginError(msg) {
+  const el = document.getElementById('loginError');
+  el.textContent = msg;
+  el.style.display = 'block';
+}
+
+function doLogout() {
+  localStorage.removeItem('gm_user');
+  currentUser = null;
+  document.getElementById('appShell').style.display = 'none';
+  document.getElementById('loginScreen').style.display = 'flex';
+}
+
+document.getElementById('loginPassword').addEventListener('keydown', e => {
+  if (e.key === 'Enter') doLogin();
+});
+
+// ============================================
+// APP INIT
+// ============================================
+async function showApp() {
+  document.getElementById('loginScreen').style.display = 'none';
+  document.getElementById('appShell').style.display = 'block';
+  updateMonthDisplay();
+  await loadDashboard();
+}
+
+function updateMonthDisplay() {
+  const now = new Date();
+  const months = ['يناير','فبراير','مارس','أبريل','مايو','يونيو','يوليو','أغسطس','سبتمبر','أكتوبر','نوفمبر','ديسمبر'];
+  const monthName = months[now.getMonth()];
+  const year = now.getFullYear();
+  const daysInMonth = new Date(year, now.getMonth()+1, 0).getDate();
+  const daysPassed = now.getDate();
+  const daysLeft = daysInMonth - daysPassed;
+  const pct = Math.round((daysPassed / daysInMonth) * 100);
+
+  document.getElementById('currentMonthBadge').textContent = `${monthName} ${year}`;
+  document.getElementById('monthNameFull').textContent = `${monthName} ${year}`;
+  document.getElementById('daysPassed').textContent = daysPassed;
+  document.getElementById('daysLeftText').textContent = `⏳ متبقي ${daysLeft} يوم`;
+  document.getElementById('monthProgressBar').style.width = pct + '%';
+}
+
+// ============================================
+// NAVIGATION
+// ============================================
+function showPage(name, btn) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  document.getElementById('page-' + name).classList.add('active');
+  if (btn) btn.classList.add('active');
+
+  if (name === 'agents') loadAgentsPage();
+  if (name === 'whatsapp') loadWhatsAppPage();
+  if (name === 'dashboard') loadDashboard();
+}
+
+function goBack() {
+  showPage('dashboard', document.querySelector('.nav-item'));
+  document.querySelector('.nav-item').classList.add('active');
+}
+
+// ============================================
+// CALCULATIONS
+// ============================================
+function getMonthKey() {
+  const now = new Date();
+  return `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}`;
+}
+
+function getDaysLeft() {
+  const now = new Date();
+  const daysInMonth = new Date(now.getFullYear(), now.getMonth()+1, 0).getDate();
+  return daysInMonth - now.getDate();
+}
+
+function getStatus(pct, required) {
+  if (pct >= required) return 'green';
+  if (pct >= required * 0.75) return 'yellow';
+  return 'red';
+}
+
+function calcAgentData(agent) {
+  const month = getMonthKey();
+  const agentTargets = targetsCache.filter(t => t.agent_id === agent.id && t.month === month);
+  const agentSales = salesCache.filter(s => s.agent_id === agent.id && s.month === month);
+
+  // Group sales by tier via item→tier mapping
+  const tierSales = {};
+  for (const sale of agentSales) {
+    const tierMapping = tiersCache.find(t => normalize(t.item_code) === normalize(String(sale.item_code)));
+    if (tierMapping) {
+      const tierName = tierMapping.tier_name;
+      tierSales[tierName] = (tierSales[tierName] || 0) + parseFloat(sale.achieved_value || 0);
+    }
+  }
+
+  let totalTarget = 0, totalAchieved = 0;
+  const tiers = agentTargets.map(t => {
+    const achieved = tierSales[t.tier_name] || 0;
+    const pct = t.target_value > 0 ? (achieved / t.target_value) * 100 : 0;
+    totalTarget += parseFloat(t.target_value || 0);
+    totalAchieved += achieved;
+    return {
+      tier_name: t.tier_name,
+      target: parseFloat(t.target_value || 0),
+      achieved,
+      pct: Math.round(pct * 10) / 10,
+      required_pct: parseFloat(t.required_pct || 75),
+      status: getStatus(pct, parseFloat(t.required_pct || 75))
+    };
+  });
+
+  const overallPct = totalTarget > 0 ? Math.round((totalAchieved / totalTarget) * 100) : 0;
+  const avgRequired = agentTargets.length > 0
+    ? agentTargets.reduce((s, t) => s + parseFloat(t.required_pct || 75), 0) / agentTargets.length
+    : 75;
+
+  return {
+    tiers,
+    totalTarget,
+    totalAchieved,
+    overallPct,
+    status: getStatus(overallPct, avgRequired),
+    daysLeft: getDaysLeft(),
+    workDays: agent.working_days || 26
+  };
+}
+
+// ============================================
+// DASHBOARD
+// ============================================
+async function loadDashboard() {
+  try {
+    const month = getMonthKey();
+    agentsCache = await db('agents', 'GET', null, '?active=eq.true&order=name');
+    targetsCache = await db('targets', 'GET', null, `?month=eq.${month}`);
+    tiersCache = await db('tiers', 'GET', null, '');
+    salesCache = await db('sales', 'GET', null, `?month=eq.${month}`);
+
+    const total = agentsCache.length;
+    let achieved = 0, atRisk = 0, totalPct = 0;
+    const alertAgents = [];
+
+    const cardsHTML = agentsCache.map(agent => {
+      const data = calcAgentData(agent);
+      if (data.overallPct >= 75) achieved++;
+      if (data.status === 'red' && data.daysLeft <= 10) {
+        atRisk++;
+        alertAgents.push({name: agent.name, pct: data.overallPct});
+      }
+      totalPct += data.overallPct;
+
+      return `
+        <div class="agent-card status-${data.status}" onclick="showAgentDetail('${agent.id}')">
+          <div class="agent-header">
+            <div class="agent-name">${agent.name}</div>
+            <div class="agent-pct">${data.overallPct}%</div>
+          </div>
+          <div class="agent-bar">
+            <div class="agent-bar-fill" style="width:${Math.min(data.overallPct,100)}%"></div>
+          </div>
+          <div class="agent-footer">
+            <span>محقق: ${formatNum(data.totalAchieved)}</span>
+            <span>هدف: ${formatNum(data.totalTarget)}</span>
+            <span>متبقي: ${data.daysLeft} يوم</span>
+          </div>
+        </div>`;
+    }).join('');
+
+    document.getElementById('totalAgents').textContent = total;
+    document.getElementById('achievedAgents').textContent = achieved;
+    document.getElementById('atRiskAgents').textContent = atRisk;
+    document.getElementById('avgAchievement').textContent = total > 0 ? Math.round(totalPct/total) + '%' : '-';
+
+    document.getElementById('dashAgentsList').innerHTML = cardsHTML || `
+      <div class="empty-state">
+        <div class="empty-icon">📊</div>
+        <p>لا توجد بيانات بعد<br>ارفع ملف الأهداف للبدء</p>
+      </div>`;
+
+    if (alertAgents.length > 0) {
+      document.getElementById('alertsSection').style.display = 'block';
+      document.getElementById('alertsList').innerHTML = alertAgents.map(a => `
+        <div class="alert-card">
+          <span style="font-size:20px">⚠️</span>
+          <div class="alert-name">${a.name}</div>
+          <div class="alert-pct">${a.pct}%</div>
+        </div>`).join('');
+    }
+  } catch(e) {
+    showToast('خطأ في تحميل البيانات', 'error');
+  }
+}
+
+function formatNum(n) {
+  return parseFloat(n || 0).toLocaleString('ar-SA', {maximumFractionDigits: 2});
+}
+
+// ============================================
+// AGENT DETAIL
+// ============================================
+function showAgentDetail(agentId) {
+  const agent = agentsCache.find(a => a.id === agentId);
+  if (!agent) return;
+  const data = calcAgentData(agent);
+
+  const tiersHTML = data.tiers.map(t => `
+    <div class="tier-card">
+      <div class="tier-header">
+        <div class="tier-name">${t.tier_name}</div>
+        <div class="tier-pct" style="color:${t.status==='green'?'var(--green-light)':t.status==='yellow'?'var(--yellow-light)':'#E74C3C'}">${t.pct}%</div>
+      </div>
+      <div class="tier-bar">
+        <div class="tier-bar-fill" style="width:${Math.min(t.pct,100)}%; background:${t.status==='green'?'var(--green-light)':t.status==='yellow'?'var(--yellow-light)':'#E74C3C'}"></div>
+      </div>
+      <div class="tier-stats">
+        <span>محقق: ${formatNum(t.achieved)}</span>
+        <span>هدف: ${formatNum(t.target)}</span>
+        <span>مطلوب: ${t.required_pct}%</span>
+      </div>
+    </div>`).join('');
+
+  const dailyNeeded = data.daysLeft > 0 ? ((data.totalTarget - data.totalAchieved) / data.daysLeft).toFixed(1) : 0;
+
+  document.getElementById('agentDetailContent').innerHTML = `
+    <div class="detail-header">
+      <div>
+        <div class="dh-name">${agent.name}</div>
+        <div class="dh-meta">📅 متبقي ${data.daysLeft} يوم | 📦 ${data.tiers.length} شريحة</div>
+      </div>
+      <div class="dh-pct">${data.overallPct}%</div>
+    </div>
+    <div style="margin-bottom:16px;">
+      <div class="section-title">📦 الشرائح</div>
+      ${tiersHTML || '<div class="empty-state"><p>لا توجد أهداف لهذا الشهر</p></div>'}
+    </div>
+    <div class="summary-card" style="margin-bottom:12px;">
+      <div class="s-label">المعدل اليومي المطلوب</div>
+      <div class="s-value s-gold">${formatNum(dailyNeeded)}</div>
+      <div class="s-sub">لتحقيق الهدف خلال ${data.daysLeft} يوم</div>
+    </div>
+    <button class="btn-whatsapp" onclick="sendWhatsApp('${agent.id}')">
+      📲 إرسال تقرير واتساب
+    </button>`;
+
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById('page-detail').classList.add('active');
+}
+
+// ============================================
+// WHATSAPP
+// ============================================
+function buildWhatsAppMsg(agent) {
+  const data = calcAgentData(agent);
+  const now = new Date();
+  const dateStr = now.toLocaleDateString('ar-SA', {day:'numeric', month:'long', year:'numeric'});
+
+  const bars = (pct) => {
+    const filled = Math.round(pct / 10);
+    return '█'.repeat(Math.min(filled,10)) + '░'.repeat(Math.max(10-filled,0));
+  };
+
+  const icon = (status) => status === 'green' ? '✅' : status === 'yellow' ? '⚠️' : '🔴';
+
+  const tiersText = data.tiers.map(t => {
+    const daily = data.daysLeft > 0 ? ((t.target - t.achieved) / data.daysLeft).toFixed(0) : 0;
+    return `📦 ${t.tier_name}\n${bars(t.pct)} ${t.pct}% | محقق: ${formatNum(t.achieved)} | هدف: ${formatNum(t.target)}\nمتبقي: ${formatNum(t.target - t.achieved)} | مطلوب يومياً: ${daily} ${icon(t.status)}`;
+  }).join('\n\n');
+
+  let smartMsg = '';
+  const allGood = data.tiers.every(t => t.status === 'green');
+  if (allGood) {
+    smartMsg = '🎉 رائع! أنت تسير بشكل ممتاز. استمر!';
+  } else if (data.daysLeft <= 3) {
+    smartMsg = `⚡ تنبيه عاجل! متبقي ${data.daysLeft} أيام فقط. ركّز بكل طاقتك!`;
+  } else {
+    const worst = data.tiers.filter(t=>t.status!=='green').sort((a,b)=>a.pct-b.pct)[0];
+    if (worst) {
+      const daily = data.daysLeft > 0 ? ((worst.target - worst.achieved) / data.daysLeft).toFixed(0) : 0;
+      smartMsg = `💡 ركّز على شريحة ${worst.tier_name} — تحتاج ${formatNum(daily)} يومياً خلال ${data.daysLeft} يوم المتبقية.`;
+    }
+  }
+
+  return `📊 تقرير إنجازك اليومي\nGolden Mark For Import & Export\n━━━━━━━━━━━━━━━━━━━━\n👤 ${agent.name} | ${dateStr}\n⏳ متبقي: ${data.daysLeft} يوم\n\n${tiersText}\n\n🏁 الهدف الشهري الإجمالي: ${data.overallPct}%\nمحقق: ${formatNum(data.totalAchieved)} | هدف: ${formatNum(data.totalTarget)}\n\n${smartMsg}\n━━━━━━━━━━━━━━━━━━━━\nالهدف الشهري • Golden Mark`;
+}
+
+function sendWhatsApp(agentId) {
+  const agent = agentsCache.find(a => a.id === agentId);
+  if (!agent || !agent.whatsapp) { showToast('لا يوجد رقم واتساب لهذا المندوب', 'error'); return; }
+  const msg = buildWhatsAppMsg(agent);
+  const url = `https://wa.me/${agent.whatsapp}?text=${encodeURIComponent(msg)}`;
+  window.open(url, '_blank');
+}
+
+function loadWhatsAppPage() {
+  if (agentsCache.length === 0) return;
+  document.getElementById('whatsappList').innerHTML = agentsCache.map(agent => {
+    const data = calcAgentData(agent);
+    return `
+      <div class="agent-row">
+        <div class="agent-avatar">👤</div>
+        <div class="agent-info">
+          <div class="a-name">${agent.name}</div>
+          <div class="a-meta">${agent.whatsapp || 'لا يوجد رقم'} | ${data.overallPct}%</div>
+        </div>
+        <button class="btn-sm" style="background:#25D366;color:white;padding:8px 14px;" onclick="sendWhatsApp('${agent.id}')">إرسال</button>
+      </div>`;
+  }).join('');
+}
+
+function sendAllWhatsApp() {
+  if (agentsCache.length === 0) { showToast('لا يوجد مناديب', 'error'); return; }
+  agentsCache.forEach((agent, i) => {
+    setTimeout(() => sendWhatsApp(agent.id), i * 500);
+  });
+  showToast(`جاري فتح ${agentsCache.length} محادثة...`, 'success');
+}
+
+// ============================================
+// AGENTS CRUD
+// ============================================
+async function loadAgentsPage() {
+  try {
+    agentsCache = await db('agents', 'GET', null, '?order=name');
+    renderAgentsList();
+  } catch(e) {
+    showToast('خطأ في تحميل المناديب', 'error');
+  }
+}
+
+function renderAgentsList() {
+  const el = document.getElementById('agentsList');
+  if (agentsCache.length === 0) {
+    el.innerHTML = '<div class="empty-state"><div class="empty-icon">👤</div><p>لا يوجد مناديب بعد</p></div>';
+    return;
+  }
+  el.innerHTML = agentsCache.map(a => `
+    <div class="agent-row">
+      <div class="agent-avatar">👤</div>
+      <div class="agent-info">
+        <div class="a-name">${a.name}</div>
+        <div class="a-meta">${a.whatsapp || 'لا يوجد رقم'} | ${a.working_days} يوم عمل</div>
+        <div style="margin-top:4px;">
+          <span class="${a.active ? 'badge-active' : 'badge-inactive'}">${a.active ? 'نشط' : 'غير نشط'}</span>
+        </div>
+      </div>
+      <div class="agent-actions">
+        <button class="btn-sm btn-edit" onclick="editAgent('${a.id}')">تعديل</button>
+        <button class="btn-sm btn-delete" onclick="deleteAgent('${a.id}')">حذف</button>
+      </div>
+    </div>`).join('');
+}
+
+function openAgentModal(id = null) {
+  editingAgentId = id;
+  if (id) {
+    const a = agentsCache.find(x => x.id === id);
+    document.getElementById('agentModalTitle').textContent = 'تعديل مندوب';
+    document.getElementById('agentName').value = a.name;
+    document.getElementById('agentWhatsapp').value = a.whatsapp || '';
+    document.getElementById('agentWorkDays').value = a.working_days || 26;
+  } else {
+    document.getElementById('agentModalTitle').textContent = 'إضافة مندوب';
+    document.getElementById('agentName').value = '';
+    document.getElementById('agentWhatsapp').value = '';
+    document.getElementById('agentWorkDays').value = 26;
+  }
+  openModal('agentModal');
+}
+
+function editAgent(id) { openAgentModal(id); }
+
+async function saveAgent() {
+  const name = document.getElementById('agentName').value.trim();
+  const whatsapp = document.getElementById('agentWhatsapp').value.trim();
+  const working_days = parseInt(document.getElementById('agentWorkDays').value) || 26;
+
+  if (!name) { showToast('أدخل اسم المندوب', 'error'); return; }
+
+  try {
+    if (editingAgentId) {
+      await db('agents', 'PATCH', {name, whatsapp, working_days}, `?id=eq.${editingAgentId}`);
+      showToast('تم تحديث المندوب ✅', 'success');
+    } else {
+      await db('agents', 'POST', {name, whatsapp, working_days});
+      showToast('تم إضافة المندوب ✅', 'success');
+    }
+    closeModal('agentModal');
+    loadAgentsPage();
+  } catch(e) {
+    showToast('خطأ: ' + e.message, 'error');
+  }
+}
+
+async function deleteAgent(id) {
+  if (!confirm('هل تريد حذف هذا المندوب؟')) return;
+  try {
+    await db('agents', 'DELETE', null, `?id=eq.${id}`);
+    showToast('تم الحذف', 'success');
+    loadAgentsPage();
+  } catch(e) {
+    showToast('خطأ في الحذف', 'error');
+  }
+}
+
+// ============================================
+// FILE UPLOADS
+// ============================================
+
+// ملف الأصناف
+async function handleItemsFile(input) {
+  const file = input.files[0];
+  if (!file) return;
+  const statusEl = document.getElementById('itemsStatus');
+  statusEl.textContent = '⏳ جاري القراءة...';
+
+  try {
+    const data = await readExcel(file);
+    const rows = data.filter(r => r[0] && r[1]);
+    // عمود A = اسم المادة, عمود B = رقم المادة
+    const items = rows.map(r => ({
+      item_name: String(r[0]).trim(),
+      item_code: String(r[1]).trim()
+    })).filter(i => i.item_code && i.item_name);
+
+    // حذف القديم وإدراج الجديد
+    await db('items', 'DELETE', null, '?id=neq.00000000-0000-0000-0000-000000000000');
+    for (const item of items) {
+      await db('items', 'POST', item);
+    }
+    itemsCache = items;
+    statusEl.textContent = `✅ تم رفع ${items.length} صنف`;
+    showToast(`تم رفع ${items.length} صنف`, 'success');
+  } catch(e) {
+    statusEl.textContent = '❌ خطأ: ' + e.message;
+    showToast('خطأ في قراءة الملف', 'error');
+  }
+}
+
+// ملف الشرائح (أفقي: كل عمود = شريحة)
+async function handleTiersFile(input) {
+  const file = input.files[0];
+  if (!file) return;
+  const statusEl = document.getElementById('tiersStatus');
+  statusEl.textContent = '⏳ جاري القراءة...';
+
+  try {
+    const data = await readExcel(file);
+    if (data.length === 0) throw new Error('الملف فارغ');
+
+    const headerRow = data[0]; // أسماء الشرائح في السطر الأول
+    const tiers = [];
+
+    for (let col = 0; col < headerRow.length; col++) {
+      const tierName = String(headerRow[col] || '').trim();
+      if (!tierName) continue;
+      for (let row = 1; row < data.length; row++) {
+        const code = String(data[row][col] || '').trim();
+        if (code) tiers.push({ tier_name: tierName, item_code: code });
+      }
+    }
+
+    await db('tiers', 'DELETE', null, '?id=neq.00000000-0000-0000-0000-000000000000');
+    for (const t of tiers) {
+      await db('tiers', 'POST', t);
+    }
+    tiersCache = tiers;
+    const tierNames = [...new Set(tiers.map(t => t.tier_name))];
+    statusEl.textContent = `✅ تم رفع ${tierNames.length} شريحة (${tiers.length} كود)`;
+    showToast(`تم رفع ${tierNames.length} شريحة`, 'success');
+  } catch(e) {
+    statusEl.textContent = '❌ خطأ: ' + e.message;
+    showToast('خطأ في قراءة الملف', 'error');
+  }
+}
+
+// ملف الأهداف الشهرية (أفقي)
+async function handleTargetsFile(input) {
+  const file = input.files[0];
+  if (!file) return;
+  const statusEl = document.getElementById('targetsStatus');
+  statusEl.textContent = '⏳ جاري القراءة...';
+
+  try {
+    const data = await readExcel(file);
+    if (data.length < 3) throw new Error('الملف يحتاج على الأقل 3 صفوف');
+
+    const month = getMonthKey();
+    const headerRow = data[0];
+    const pctRow = data[1]; // سطر النسبة المطلوبة
+    const agentRows = data.slice(2);
+
+    // تحديد الأعمدة
+    const nameColIdx = headerRow.findIndex(h => normalize(String(h||'')) === normalize('اسم_المندوب') || normalize(String(h||'')) === normalize('اسم المندوب'));
+    const waColIdx = headerRow.findIndex(h => normalize(String(h||'')) === normalize('واتساب'));
+    const daysColIdx = headerRow.findIndex(h => normalize(String(h||'')) === normalize('أيام_العمل') || normalize(String(h||'')) === normalize('ايام العمل'));
+    const totalColIdx = headerRow.findIndex(h => normalize(String(h||'')) === normalize('الهدف_الشهري') || normalize(String(h||'')) === normalize('الهدف الشهري'));
+
+    if (nameColIdx === -1) throw new Error('لم يُعثر على عمود "اسم_المندوب"');
+
+    // الشرائح: كل عمود ليس name/wa/days/total
+    const tierCols = [];
+    headerRow.forEach((h, i) => {
+      if (i === nameColIdx || i === waColIdx || i === daysColIdx || i === totalColIdx) return;
+      const name = String(h || '').trim();
+      if (name && normalize(name) !== normalize('النسبة_المطلوبة')) {
+        tierCols.push({ idx: i, name, requiredPct: parseFloat(pctRow[i]) || 75 });
+      }
+    });
+
+    let updated = 0, notFound = [];
+    const agents = await db('agents', 'GET', null, '?active=eq.true');
+
+    for (const row of agentRows) {
+      const agentName = String(row[nameColIdx] || '').trim();
+      if (!agentName || normalize(agentName) === normalize('النسبة_المطلوبة')) continue;
+
+      const agent = agents.find(a => normalize(a.name) === normalize(agentName));
+      if (!agent) { notFound.push(agentName); continue; }
+
+      // تحديث بيانات المندوب
+      const wa = waColIdx >= 0 ? String(row[waColIdx] || '').trim() : null;
+      const days = daysColIdx >= 0 ? parseInt(row[daysColIdx]) || 26 : 26;
+      if (wa || days) {
+        const upd = {};
+        if (wa) upd.whatsapp = wa;
+        if (days) upd.working_days = days;
+        await db('agents', 'PATCH', upd, `?id=eq.${agent.id}`);
+      }
+
+      // حذف أهداف الشهر القديمة وإضافة الجديدة
+      await db('targets', 'DELETE', null, `?agent_id=eq.${agent.id}&month=eq.${month}`);
+      for (const tc of tierCols) {
+        const val = parseFloat(String(row[tc.idx] || '0').replace(/,/g, '')) || 0;
+        if (val > 0) {
+          await db('targets', 'POST', {
+            agent_id: agent.id,
+            month,
+            tier_name: tc.name,
+            target_value: val,
+            required_pct: tc.requiredPct
+          });
+        }
+      }
+      updated++;
+    }
+
+    let msg = `✅ تم تحديث ${updated} مندوب`;
+    if (notFound.length > 0) msg += ` | ⚠️ لم يُعثر: ${notFound.join(', ')}`;
+    statusEl.textContent = msg;
+    showToast(`تم رفع الأهداف — ${updated} مندوب`, 'success');
+    await loadDashboard();
+  } catch(e) {
+    statusEl.textContent = '❌ خطأ: ' + e.message;
+    showToast('خطأ: ' + e.message, 'error');
+  }
+}
+
+// ملف المبيعات (عمودي: مندوب | كود | قيمة)
+async function handleSalesFile(input) {
+  const file = input.files[0];
+  if (!file) return;
+  const statusEl = document.getElementById('salesStatus');
+  statusEl.textContent = '⏳ جاري القراءة...';
+
+  try {
+    const data = await readExcel(file);
+    if (data.length < 2) throw new Error('الملف فارغ أو لا يحتوي بيانات');
+
+    const month = getMonthKey();
+    const headerRow = data[0];
+    const rows = data.slice(1);
+
+    // تحديد الأعمدة
+    const nameIdx = headerRow.findIndex(h => normalize(String(h||'')).includes('مندوب') || normalize(String(h||'')) === 'اسم');
+    const codeIdx = headerRow.findIndex(h => normalize(String(h||'')).includes('كود') || normalize(String(h||'')).includes('رقم'));
+    const valIdx  = headerRow.findIndex(h => normalize(String(h||'')).includes('قيم') || normalize(String(h||'')).includes('مبيع') || normalize(String(h||'')).includes('كمي'));
+
+    if (nameIdx === -1 || codeIdx === -1 || valIdx === -1) {
+      throw new Error('تأكد من وجود أعمدة: اسم_المندوب، رقم_المادة، القيمة');
+    }
+
+    const agents = await db('agents', 'GET', null, '?active=eq.true');
+
+    // حذف مبيعات الشهر القديمة
+    await db('sales', 'DELETE', null, `?month=eq.${month}`);
+
+    let updated = 0, notFound = new Set();
+    for (const row of rows) {
+      const agentName = String(row[nameIdx] || '').trim();
+      const itemCode = String(row[codeIdx] || '').trim();
+      const value = parseFloat(String(row[valIdx] || '0').replace(/,/g, '')) || 0;
+
+      if (!agentName || !itemCode) continue;
+
+      const agent = agents.find(a => normalize(a.name) === normalize(agentName));
+      if (!agent) { notFound.add(agentName); continue; }
+
+      await db('sales', 'POST', {
+        agent_id: agent.id,
+        month,
+        item_code: itemCode,
+        achieved_value: value
+      });
+      updated++;
+    }
+
+    let msg = `✅ تم رفع ${updated} سطر`;
+    if (notFound.size > 0) msg += ` | ⚠️ لم يُعثر: ${[...notFound].join(', ')}`;
+    statusEl.textContent = msg;
+    showToast('تم رفع المبيعات ✅', 'success');
+    await loadDashboard();
+  } catch(e) {
+    statusEl.textContent = '❌ خطأ: ' + e.message;
+    showToast('خطأ: ' + e.message, 'error');
+  }
+}
+
+// قراءة Excel
+function readExcel(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = e => {
+      try {
+        const wb = XLSX.read(e.target.result, {type: 'binary', codepage: 65001});
+        const ws = wb.Sheets[wb.SheetNames[0]];
+        const data = XLSX.utils.sheet_to_json(ws, {header: 1, defval: ''});
+        resolve(data);
+      } catch(err) { reject(err); }
+    };
+    reader.onerror = reject;
+    reader.readAsBinaryString(file);
+  });
+}
+
+// ============================================
+// MODAL HELPERS
+// ============================================
+function openModal(id) {
+  document.getElementById(id).classList.add('open');
+}
+
+function closeModal(id) {
+  document.getElementById(id).classList.remove('open');
+}
+
+// Close on overlay click
+document.querySelectorAll('.modal-overlay').forEach(overlay => {
+  overlay.addEventListener('click', e => {
+    if (e.target === overlay) overlay.classList.remove('open');
+  });
+});
+
+// ============================================
+// TOAST
+// ============================================
+function showToast(msg, type = 'success') {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = `toast ${type} show`;
+  setTimeout(() => t.classList.remove('show'), 3000);
+}
+
+// ============================================
+// SETTINGS
+// ============================================
+function openChangePassword() {
+  const np = prompt('كلمة المرور الجديدة:');
+  if (!np) return;
+  db('users', 'PATCH', {password_hash: np}, `?id=eq.${currentUser.id}`)
+    .then(() => showToast('تم تغيير كلمة المرور ✅', 'success'))
+    .catch(() => showToast('خطأ في تغيير كلمة المرور', 'error'));
+}
+
+// ============================================
+// AUTO LOGIN
+// ============================================
+window.addEventListener('load', () => {
+  const saved = localStorage.getItem('gm_user');
+  if (saved) {
+    try {
+      currentUser = JSON.parse(saved);
+      showApp();
+    } catch(e) {
+      localStorage.removeItem('gm_user');
+    }
+  }
+});
+</script>
+</body>
+</html>
