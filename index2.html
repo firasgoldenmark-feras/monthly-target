@@ -1,0 +1,2104 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>الهدف الشهري — Golden Mark</title>
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="الهدف الشهري">
+<link rel="apple-touch-icon" href="icons/icon-192x192.png">
+<link rel="icon" type="image/png" href="icons/favicon.png">
+<meta name="theme-color" content="#7A1515">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --red:        #7A1515;
+  --red2:       #5C0F0F;
+  --red3:       #9B1C1C;
+  --gold:       #C9A227;
+  --gold2:      #E2B93B;
+  --gold3:      #F0D080;
+  --bg:         #F7F3EE;
+  --bg2:        #EDE7DE;
+  --bg3:        #E0D8CC;
+  --white:      #FFFFFF;
+  --dark:       #1A0A0A;
+  --dark2:      #2D1A1A;
+  --text:       #1A0A0A;
+  --text2:      #5C3D2E;
+  --text3:      #9C7A6A;
+  --green:      #1B6B3A;
+  --green2:     #22A05A;
+  --yellow:     #B8860B;
+  --yellow2:    #DAA520;
+  --danger:     #C0392B;
+  --shadow:     0 2px 12px rgba(90,20,20,0.10);
+  --shadow2:    0 4px 24px rgba(90,20,20,0.16);
+  --radius:     14px;
+  --radius2:    10px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+
+body {
+  font-family: 'Cairo', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ─── SCROLLBAR ─── */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--bg2); }
+::-webkit-scrollbar-thumb { background: var(--red); border-radius: 4px; }
+
+/* ══════════════════════════════════════
+   LOGIN
+══════════════════════════════════════ */
+#loginScreen {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 0%, rgba(122,21,21,0.18) 0%, transparent 70%),
+    var(--bg);
+  padding: 24px 20px;
+}
+
+.login-card {
+  background: var(--white);
+  border-radius: 24px;
+  box-shadow: 0 8px 48px rgba(90,20,20,0.14);
+  padding: 40px 32px 36px;
+  width: 100%;
+  max-width: 380px;
+  border-top: 4px solid var(--gold);
+}
+
+.login-brand {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.login-brand .emblem {
+  width: 68px; height: 68px;
+  background: linear-gradient(135deg, var(--red) 0%, var(--red2) 100%);
+  border-radius: 20px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 30px;
+  margin-bottom: 14px;
+  box-shadow: 0 6px 20px rgba(122,21,21,0.30);
+}
+
+.login-brand h1 {
+  font-size: 24px;
+  font-weight: 900;
+  color: var(--red);
+  letter-spacing: -0.5px;
+}
+
+.login-brand p {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--gold);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-top: 4px;
+}
+
+.field { margin-bottom: 16px; }
+.field label {
+  display: block;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text2);
+  margin-bottom: 7px;
+  letter-spacing: 0.5px;
+}
+
+.field input {
+  width: 100%;
+  background: var(--bg);
+  border: 1.5px solid var(--bg3);
+  border-radius: var(--radius2);
+  padding: 12px 16px;
+  font-family: 'Cairo', sans-serif;
+  font-size: 15px;
+  color: var(--text);
+  outline: none;
+  transition: border-color .2s, box-shadow .2s;
+}
+.field input:focus {
+  border-color: var(--gold);
+  box-shadow: 0 0 0 3px rgba(201,162,39,0.12);
+}
+
+.remember {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 22px;
+  font-size: 13px;
+  color: var(--text2);
+  cursor: pointer;
+}
+.remember input { width:16px; height:16px; accent-color: var(--red); cursor: pointer; }
+
+.btn-login {
+  width: 100%;
+  background: linear-gradient(135deg, var(--red3) 0%, var(--red2) 100%);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius2);
+  padding: 14px;
+  font-family: 'Cairo', sans-serif;
+  font-size: 16px;
+  font-weight: 800;
+  cursor: pointer;
+  letter-spacing: 1px;
+  box-shadow: 0 4px 16px rgba(122,21,21,0.35);
+  transition: transform .15s, box-shadow .15s;
+}
+.btn-login:active { transform: scale(.98); }
+
+.err-box {
+  background: #FEF2F2;
+  border: 1px solid #FECACA;
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 13px;
+  color: var(--danger);
+  margin-bottom: 14px;
+  display: none;
+}
+
+/* ══════════════════════════════════════
+   APP SHELL
+══════════════════════════════════════ */
+#app { display: none; flex-direction: column; min-height: 100vh; }
+
+/* TOP BAR */
+.topbar {
+  background: var(--red2);
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+  position: sticky;
+  top: 0;
+  z-index: 200;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.18);
+}
+
+.tb-brand { display: flex; align-items: center; gap: 10px; }
+.tb-icon {
+  width: 34px; height: 34px;
+  background: var(--gold);
+  border-radius: 9px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 17px;
+}
+.tb-title { font-size: 16px; font-weight: 900; color: #fff; letter-spacing: 0.3px; }
+
+.tb-right { display: flex; align-items: center; gap: 8px; }
+
+.month-pill {
+  background: rgba(201,162,39,0.20);
+  border: 1px solid rgba(201,162,39,0.40);
+  color: var(--gold3);
+  padding: 5px 11px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.tb-btn {
+  width: 34px; height: 34px;
+  background: rgba(255,255,255,0.10);
+  border: none;
+  border-radius: 9px;
+  color: rgba(255,255,255,0.70);
+  font-size: 17px;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: background .2s;
+}
+.tb-btn:hover { background: rgba(255,255,255,0.18); }
+
+/* BOTTOM NAV */
+.bottom-nav {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  background: var(--white);
+  border-top: 1px solid var(--bg3);
+  display: flex;
+  z-index: 200;
+  box-shadow: 0 -2px 16px rgba(90,20,20,0.08);
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+.nav-btn {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 9px 4px 7px;
+  background: none;
+  border: none;
+  font-family: 'Cairo', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--text3);
+  cursor: pointer;
+  gap: 3px;
+  transition: color .2s;
+  position: relative;
+}
+
+.nav-btn .ni { font-size: 21px; transition: transform .2s; }
+.nav-btn.active { color: var(--red); }
+.nav-btn.active .ni { transform: scale(1.12); }
+.nav-btn.active::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 20%; right: 20%;
+  height: 2px;
+  background: var(--red);
+  border-radius: 0 0 3px 3px;
+}
+
+/* CONTENT */
+.content { flex: 1; padding: 16px; padding-bottom: 76px; }
+
+/* PAGES */
+.pg { display: none; animation: fadeIn .25s ease; }
+.pg.on { display: block; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+
+/* ══════════════════════════════════════
+   COMPONENTS
+══════════════════════════════════════ */
+
+/* Section Header */
+.sec-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 14px;
+}
+.sec-title { font-size: 18px; font-weight: 900; color: var(--dark); }
+.sec-sub { font-size: 12px; color: var(--text3); font-weight: 600; }
+
+/* Card */
+.card {
+  background: var(--white);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 16px;
+  margin-bottom: 12px;
+}
+
+/* Divider */
+.divider { height: 1px; background: var(--bg2); margin: 12px 0; }
+
+/* Badge */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 700;
+  gap: 4px;
+}
+.badge-green  { background: #D1FAE5; color: var(--green); }
+.badge-yellow { background: #FEF3C7; color: var(--yellow); }
+.badge-red    { background: #FEE2E2; color: var(--danger); }
+.badge-gold   { background: #FEF9E7; color: var(--gold); border: 1px solid var(--gold3); }
+.badge-gray   { background: var(--bg2); color: var(--text3); }
+
+/* Progress Bar */
+.pbar-wrap { background: var(--bg2); border-radius: 6px; height: 8px; overflow: hidden; }
+.pbar-fill  { height: 100%; border-radius: 6px; transition: width 1.2s cubic-bezier(.4,0,.2,1); }
+.pbar-green  { background: linear-gradient(90deg, var(--green), var(--green2)); }
+.pbar-yellow { background: linear-gradient(90deg, var(--yellow), var(--yellow2)); }
+.pbar-red    { background: linear-gradient(90deg, var(--danger), #E74C3C); }
+.pbar-gold   { background: linear-gradient(90deg, var(--gold), var(--gold2)); }
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  border: none;
+  border-radius: var(--radius2);
+  padding: 11px 18px;
+  font-family: 'Cairo', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform .15s, box-shadow .15s, opacity .15s;
+}
+.btn:active { transform: scale(.97); }
+.btn-red    { background: linear-gradient(135deg,var(--red3),var(--red2)); color:#fff; box-shadow:0 3px 12px rgba(122,21,21,.25); }
+.btn-gold   { background: linear-gradient(135deg,var(--gold2),var(--gold)); color:var(--dark); box-shadow:0 3px 12px rgba(201,162,39,.25); }
+.btn-ghost  { background: var(--bg2); color: var(--text2); }
+.btn-green  { background: #D1FAE5; color: var(--green); }
+.btn-danger { background: #FEE2E2; color: var(--danger); }
+.btn-wa     { background: #25D366; color:#fff; box-shadow:0 3px 12px rgba(37,211,102,.25); }
+.btn-full   { width: 100%; }
+.btn-sm     { padding: 7px 12px; font-size: 12px; border-radius: 8px; }
+
+/* Input */
+.inp {
+  width: 100%;
+  background: var(--bg);
+  border: 1.5px solid var(--bg3);
+  border-radius: var(--radius2);
+  padding: 11px 14px;
+  font-family: 'Cairo', sans-serif;
+  font-size: 14px;
+  color: var(--text);
+  outline: none;
+  transition: border-color .2s;
+}
+.inp:focus { border-color: var(--gold); }
+
+.inp-label { font-size: 12px; font-weight: 700; color: var(--text2); margin-bottom: 6px; display: block; }
+
+/* Select */
+.sel {
+  width: 100%;
+  background: var(--bg);
+  border: 1.5px solid var(--bg3);
+  border-radius: var(--radius2);
+  padding: 11px 14px;
+  font-family: 'Cairo', sans-serif;
+  font-size: 14px;
+  color: var(--text);
+  outline: none;
+  appearance: none;
+  cursor: pointer;
+}
+.sel:focus { border-color: var(--gold); }
+
+/* Toast */
+#toast {
+  position: fixed;
+  top: 66px; left: 50%;
+  transform: translateX(-50%) translateY(-10px);
+  background: var(--dark);
+  color: #fff;
+  padding: 10px 22px;
+  border-radius: 24px;
+  font-size: 13px;
+  font-weight: 600;
+  z-index: 999;
+  opacity: 0;
+  pointer-events: none;
+  transition: all .3s;
+  white-space: nowrap;
+  max-width: 90vw;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+#toast.on { opacity: 1; transform: translateX(-50%) translateY(0); }
+#toast.ok   { background: var(--green); }
+#toast.fail { background: var(--danger); }
+#toast.warn { background: var(--yellow); color: var(--dark); }
+
+/* Modal */
+.overlay {
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,0.45);
+  z-index: 500;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .3s;
+}
+.overlay.on { opacity: 1; pointer-events: all; }
+
+.modal {
+  background: var(--white);
+  border-radius: 24px 24px 0 0;
+  padding: 20px 20px 32px;
+  width: 100%;
+  max-width: 520px;
+  transform: translateY(100%);
+  transition: transform .3s cubic-bezier(.4,0,.2,1);
+  max-height: 90vh;
+  overflow-y: auto;
+}
+.overlay.on .modal { transform: translateY(0); }
+
+.modal-handle { width: 38px; height: 4px; background: var(--bg3); border-radius: 2px; margin: 0 auto 18px; }
+.modal-title  { font-size: 18px; font-weight: 900; color: var(--dark); margin-bottom: 18px; }
+.modal-footer { display: flex; gap: 10px; margin-top: 18px; }
+.modal-footer .btn { flex: 1; }
+
+/* Empty */
+.empty { text-align: center; padding: 40px 20px; color: var(--text3); }
+.empty .ei { font-size: 44px; margin-bottom: 10px; }
+.empty p   { font-size: 13px; line-height: 1.6; }
+
+/* Spinner */
+.spin {
+  display: inline-block;
+  width: 18px; height: 18px;
+  border: 2px solid rgba(255,255,255,.3);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: rot .7s linear infinite;
+}
+@keyframes rot { to { transform: rotate(360deg); } }
+
+/* ══════════════════════════════════════
+   PAGE: DASHBOARD
+══════════════════════════════════════ */
+.month-banner {
+  background: linear-gradient(135deg, var(--red3) 0%, var(--red2) 100%);
+  border-radius: var(--radius);
+  padding: 18px;
+  margin-bottom: 14px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: var(--shadow2);
+}
+.month-banner::after {
+  content: '🎯';
+  position: absolute;
+  left: -8px; top: 50%;
+  transform: translateY(-50%);
+  font-size: 80px;
+  opacity: .07;
+}
+.mb-row { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 12px; }
+.mb-month { font-size: 13px; color: rgba(255,255,255,.65); margin-bottom: 4px; }
+.mb-days  { font-size: 30px; font-weight: 900; color: #fff; }
+.mb-label { font-size: 11px; color: rgba(255,255,255,.55); }
+.mb-left  { font-size: 14px; font-weight: 700; color: var(--gold3); }
+
+.kpi-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 14px; }
+.kpi {
+  background: var(--white);
+  border-radius: var(--radius);
+  padding: 14px;
+  box-shadow: var(--shadow);
+  border-right: 3px solid transparent;
+}
+.kpi.kpi-gold   { border-color: var(--gold); }
+.kpi.kpi-green  { border-color: var(--green2); }
+.kpi.kpi-red    { border-color: var(--danger); }
+.kpi.kpi-blue   { border-color: #5DADE2; }
+.kpi-label { font-size: 11px; font-weight: 700; color: var(--text3); margin-bottom: 5px; }
+.kpi-value { font-size: 28px; font-weight: 900; }
+.kpi-sub   { font-size: 10px; color: var(--text3); margin-top: 2px; }
+.kpi-gold  .kpi-value { color: var(--gold); }
+.kpi-green .kpi-value { color: var(--green2); }
+.kpi-red   .kpi-value { color: var(--danger); }
+.kpi-blue  .kpi-value { color: #5DADE2; }
+
+/* Alert Strip */
+.alert-strip {
+  background: #FEF2F2;
+  border: 1px solid #FECACA;
+  border-radius: var(--radius);
+  padding: 12px 14px;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.alert-strip .as-icon { font-size: 20px; flex-shrink: 0; }
+.alert-strip .as-text { font-size: 13px; color: var(--danger); font-weight: 600; flex: 1; }
+
+/* ══════════════════════════════════════
+   PAGE: AGENTS — ACCORDION
+══════════════════════════════════════ */
+.agent-item {
+  background: var(--white);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  margin-bottom: 10px;
+  overflow: hidden;
+  transition: box-shadow .2s;
+}
+.agent-item.open { box-shadow: var(--shadow2); }
+
+.agent-row {
+  display: flex;
+  align-items: center;
+  padding: 14px 16px;
+  cursor: pointer;
+  gap: 12px;
+  user-select: none;
+}
+
+.agent-avatar {
+  width: 44px; height: 44px;
+  border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px;
+  flex-shrink: 0;
+  font-weight: 900;
+  font-size: 16px;
+  color: #fff;
+}
+.av-green  { background: linear-gradient(135deg,var(--green),var(--green2)); }
+.av-yellow { background: linear-gradient(135deg,var(--yellow),var(--yellow2)); }
+.av-red    { background: linear-gradient(135deg,var(--danger),#E74C3C); }
+.av-gray   { background: linear-gradient(135deg,var(--text3),var(--text2)); }
+
+.agent-info { flex: 1; min-width: 0; }
+.agent-name { font-size: 15px; font-weight: 800; color: var(--dark); }
+.agent-meta { font-size: 11px; color: var(--text3); margin-top: 3px; }
+
+.agent-right { display: flex; flex-direction: column; align-items: flex-end; gap: 4px; }
+.agent-pct { font-size: 22px; font-weight: 900; }
+.pct-green  { color: var(--green2); }
+.pct-yellow { color: var(--yellow2); }
+.pct-red    { color: var(--danger); }
+.pct-gray   { color: var(--text3); }
+
+.chevron { font-size: 14px; color: var(--text3); transition: transform .3s; margin-top: 2px; }
+.agent-item.open .chevron { transform: rotate(180deg); }
+
+/* AGENT DETAIL PANEL */
+.agent-panel {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height .4s cubic-bezier(.4,0,.2,1);
+}
+.agent-item.open .agent-panel { max-height: 2000px; }
+
+.agent-panel-inner {
+  padding: 0 16px 16px;
+  border-top: 1px solid var(--bg2);
+}
+
+/* Month selector */
+.month-tabs {
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  padding: 14px 0 10px;
+  scrollbar-width: none;
+}
+.month-tabs::-webkit-scrollbar { display: none; }
+
+.mtab {
+  flex-shrink: 0;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  border: 1.5px solid var(--bg3);
+  background: var(--bg);
+  color: var(--text2);
+  transition: all .2s;
+}
+.mtab.active { background: var(--red2); color: #fff; border-color: var(--red2); }
+
+/* Tier rows inside panel */
+.tier-row {
+  padding: 12px 0;
+  border-bottom: 1px solid var(--bg2);
+}
+.tier-row:last-child { border-bottom: none; }
+
+.tier-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+.tier-name { font-size: 13px; font-weight: 700; color: var(--dark); }
+.tier-pct  { font-size: 17px; font-weight: 900; }
+
+.tier-nums {
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+  color: var(--text3);
+  margin-top: 6px;
+}
+
+/* Summary bar */
+.total-bar {
+  background: linear-gradient(135deg, var(--red3), var(--red2));
+  border-radius: 12px;
+  padding: 14px;
+  margin: 14px 0 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.total-bar .tb-l .l1 { font-size: 12px; color: rgba(255,255,255,.65); }
+.total-bar .tb-l .l2 { font-size: 20px; font-weight: 900; color: #fff; }
+.total-bar .tb-r { font-size: 34px; font-weight: 900; color: var(--gold3); }
+
+/* Compare chart */
+.compare-wrap {
+  background: var(--bg);
+  border-radius: 12px;
+  padding: 12px;
+  margin-top: 10px;
+}
+.compare-title { font-size: 12px; font-weight: 700; color: var(--text2); margin-bottom: 10px; }
+.compare-bar-row { display: flex; align-items: center; gap: 8px; margin-bottom: 7px; }
+.cbr-label { font-size: 11px; color: var(--text3); width: 60px; flex-shrink: 0; text-align: left; }
+.cbr-bar   { flex: 1; height: 18px; background: var(--bg3); border-radius: 4px; overflow: hidden; position: relative; }
+.cbr-fill  { height: 100%; border-radius: 4px; transition: width 1s ease; display: flex; align-items: center; justify-content: flex-end; padding-left: 4px; }
+.cbr-fill span { font-size: 10px; font-weight: 700; color: #fff; padding: 0 6px; white-space: nowrap; }
+
+/* ══════════════════════════════════════
+   PAGE: WHATSAPP
+══════════════════════════════════════ */
+.wa-item {
+  background: var(--white);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 14px 16px;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.wa-info { flex: 1; }
+.wa-name { font-size: 15px; font-weight: 800; }
+.wa-meta { font-size: 12px; color: var(--text3); margin-top: 2px; }
+
+/* ══════════════════════════════════════
+   PAGE: ADMIN
+══════════════════════════════════════ */
+.admin-tabs {
+  display: flex;
+  background: var(--bg2);
+  border-radius: 12px;
+  padding: 4px;
+  margin-bottom: 16px;
+  gap: 2px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.admin-tabs::-webkit-scrollbar { display: none; }
+
+.atab {
+  flex-shrink: 0;
+  padding: 9px 14px;
+  border-radius: 9px;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  color: var(--text3);
+  background: none;
+  border: none;
+  font-family: 'Cairo', sans-serif;
+  transition: all .2s;
+}
+.atab.active { background: var(--white); color: var(--red); box-shadow: var(--shadow); }
+
+.admin-panel { display: none; }
+.admin-panel.on { display: block; }
+
+/* Upload zones */
+.upload-zone {
+  background: var(--white);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 18px;
+  margin-bottom: 12px;
+}
+.uz-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+.uz-icon {
+  width: 38px; height: 38px;
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px;
+  flex-shrink: 0;
+}
+.uz-red    { background: #FEE2E2; }
+.uz-gold   { background: #FEF9E7; }
+.uz-green  { background: #D1FAE5; }
+.uz-blue   { background: #EFF6FF; }
+.uz-title  { font-size: 15px; font-weight: 800; color: var(--dark); }
+.uz-sub    { font-size: 11px; color: var(--text3); }
+.uz-status {
+  margin-top: 10px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  display: none;
+}
+.uz-status.ok   { background: #D1FAE5; color: var(--green); display: block; }
+.uz-status.fail { background: #FEE2E2; color: var(--danger); display: block; }
+.uz-status.warn { background: #FEF3C7; color: var(--yellow); display: block; }
+.uz-status.loading { background: var(--bg2); color: var(--text2); display: block; }
+
+/* Data tables */
+.data-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.data-table th {
+  background: var(--bg2);
+  padding: 10px 12px;
+  text-align: right;
+  font-weight: 700;
+  color: var(--text2);
+  font-size: 12px;
+}
+.data-table td { padding: 10px 12px; border-bottom: 1px solid var(--bg2); }
+.data-table tr:last-child td { border-bottom: none; }
+.data-table tr:hover td { background: var(--bg); }
+
+.table-wrap {
+  background: var(--white);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  overflow-x: auto;
+}
+
+/* Agents admin */
+.admin-agent-row {
+  display: flex;
+  align-items: center;
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--bg2);
+  gap: 12px;
+}
+.admin-agent-row:last-child { border-bottom: none; }
+.aar-info { flex: 1; }
+.aar-name { font-size: 14px; font-weight: 800; }
+.aar-meta { font-size: 11px; color: var(--text3); margin-top: 2px; }
+.aar-actions { display: flex; gap: 6px; }
+
+/* ══════════════════════════════════════
+   LOADING OVERLAY
+══════════════════════════════════════ */
+#loadingBar {
+  position: fixed;
+  top: 56px; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--gold), var(--gold2), var(--gold));
+  background-size: 200% 100%;
+  animation: loadAnim 1.2s linear infinite;
+  z-index: 999;
+  display: none;
+}
+#loadingBar.on { display: block; }
+@keyframes loadAnim { to { background-position: -200% 0; } }
+</style>
+</head>
+<body>
+
+<!-- ══ LOGIN ══ -->
+<div id="loginScreen">
+  <div class="login-card">
+    <div class="login-brand">
+      <img src="icons/icon-192x192.png" alt="Golden Mark" style="width:90px;height:90px;border-radius:20px;margin-bottom:12px;box-shadow:0 6px 20px rgba(122,21,21,0.25);">
+      <h1>الهدف الشهري</h1>
+      <p>Golden Mark</p>
+    </div>
+    <div class="err-box" id="loginErr"></div>
+    <div class="field">
+      <label>اسم المستخدم</label>
+      <input class="inp" type="text" id="uname" placeholder="admin">
+    </div>
+    <div class="field">
+      <label>كلمة المرور</label>
+      <input class="inp" type="password" id="upass" placeholder="••••••••">
+    </div>
+    <label class="remember">
+      <input type="checkbox" id="rem" checked> تذكرني
+    </label>
+    <button class="btn-login" id="loginBtn" onclick="doLogin()">دخول</button>
+  </div>
+</div>
+
+<!-- ══ APP ══ -->
+<div id="app">
+  <div class="topbar">
+    <div class="tb-brand">
+      <img src="icons/icon-72x72.png" style="width:34px;height:34px;border-radius:9px;object-fit:cover;">
+      <span class="tb-title">الهدف الشهري</span>
+    </div>
+    <div class="tb-right">
+      <span class="month-pill" id="monthPill">—</span>
+      <button class="tb-btn" id="installBtn" onclick="installApp()" title="تثبيت التطبيق" style="display:none">📲</button>
+      <button class="tb-btn" onclick="doLogout()" title="خروج">🚪</button>
+    </div>
+  </div>
+
+  <div id="loadingBar"></div>
+
+  <div class="content">
+
+    <!-- ═ DASHBOARD ═ -->
+    <div class="pg on" id="pg-dash">
+      <div class="month-banner">
+        <div class="mb-month" id="mbMonth"></div>
+        <div class="mb-row">
+          <div>
+            <div class="mb-days" id="mbDays">—</div>
+            <div class="mb-label">يوم مضى من الشهر</div>
+          </div>
+          <div class="mb-left" id="mbLeft"></div>
+        </div>
+        <div class="pbar-wrap">
+          <div class="pbar-fill pbar-gold" id="mbBar" style="width:0%"></div>
+        </div>
+      </div>
+
+      <div class="kpi-row">
+        <div class="kpi kpi-gold">
+          <div class="kpi-label">إجمالي المناديب</div>
+          <div class="kpi-value" id="kpiTotal">—</div>
+          <div class="kpi-sub">مندوب نشط</div>
+        </div>
+        <div class="kpi kpi-green">
+          <div class="kpi-label">حققوا الهدف</div>
+          <div class="kpi-value" id="kpiOk">—</div>
+          <div class="kpi-sub">فوق النسبة المطلوبة</div>
+        </div>
+        <div class="kpi kpi-red">
+          <div class="kpi-label">في الخطر</div>
+          <div class="kpi-value" id="kpiRisk">—</div>
+          <div class="kpi-sub">يحتاج متابعة</div>
+        </div>
+        <div class="kpi kpi-blue">
+          <div class="kpi-label">متوسط الإنجاز</div>
+          <div class="kpi-value" id="kpiAvg">—</div>
+          <div class="kpi-sub">من الهدف الشهري</div>
+        </div>
+      </div>
+
+      <div id="alertsWrap"></div>
+
+      <div class="sec-head">
+        <span class="sec-title">المناديب</span>
+        <span class="sec-sub" id="dashDate"></span>
+      </div>
+      <div id="dashList">
+        <div class="empty"><div class="ei">📊</div><p>لا توجد بيانات بعد<br>ارفع ملف الأهداف للبدء</p></div>
+      </div>
+    </div>
+
+    <!-- ═ AGENTS ═ -->
+    <div class="pg" id="pg-agents">
+      <div class="sec-head">
+        <span class="sec-title">المناديب</span>
+        <span class="sec-sub" id="agentsCount"></span>
+      </div>
+
+      <!-- Month filter -->
+      <div class="month-tabs" id="agentMonthTabs"></div>
+
+      <div id="agentsList">
+        <div class="empty"><div class="ei">👥</div><p>لا يوجد مناديب بعد</p></div>
+      </div>
+    </div>
+
+    <!-- ═ WHATSAPP ═ -->
+    <div class="pg" id="pg-wa">
+      <div class="sec-head">
+        <span class="sec-title">واتساب</span>
+        <button class="btn btn-wa btn-sm" onclick="sendAll()">📤 إرسال جماعي</button>
+      </div>
+      <div id="waList">
+        <div class="empty"><div class="ei">💬</div><p>لا توجد بيانات</p></div>
+      </div>
+    </div>
+
+    <!-- ═ ADMIN ═ -->
+    <div class="pg" id="pg-admin">
+      <div class="sec-head">
+        <span class="sec-title">لوحة المدير</span>
+      </div>
+
+      <div class="admin-tabs">
+        <button class="atab active" onclick="switchAdmin('upload',this)">📤 رفع الملفات</button>
+        <button class="atab" onclick="switchAdmin('agents',this)">👥 المناديب</button>
+        <button class="atab" onclick="switchAdmin('items',this)">📦 الأصناف</button>
+        <button class="atab" onclick="switchAdmin('tiers',this)">🗂 الشرائح</button>
+        <button class="atab" onclick="switchAdmin('targets',this)">🎯 الأهداف</button>
+        <button class="atab" onclick="switchAdmin('sales',this)">💰 المبيعات</button>
+        <button class="atab" onclick="switchAdmin('users',this)">🔑 المستخدمين</button>
+        <button class="atab" onclick="switchAdmin('log',this)">📋 السجل</button>
+      </div>
+
+      <!-- UPLOAD -->
+      <div class="admin-panel on" id="ap-upload">
+        <div class="upload-zone">
+          <div class="uz-head">
+            <div class="uz-icon uz-blue">📦</div>
+            <div><div class="uz-title">ملف الأصناف</div><div class="uz-sub">اسم المادة + رقم المادة — يُرفع مرة واحدة</div></div>
+          </div>
+          <input type="file" id="fItems" accept=".xlsx,.xls" style="display:none" onchange="uploadItems(this)">
+          <button class="btn btn-ghost btn-full" onclick="document.getElementById('fItems').click()">📂 اختر الملف</button>
+          <div class="uz-status" id="stItems"></div>
+        </div>
+
+        <div class="upload-zone">
+          <div class="uz-head">
+            <div class="uz-icon uz-gold">🗂</div>
+            <div><div class="uz-title">ملف الشرائح</div><div class="uz-sub">اسم الشريحة + أكوادها — يُرفع مرة واحدة</div></div>
+          </div>
+          <input type="file" id="fTiers" accept=".xlsx,.xls" style="display:none" onchange="uploadTiers(this)">
+          <button class="btn btn-ghost btn-full" onclick="document.getElementById('fTiers').click()">📂 اختر الملف</button>
+          <div class="uz-status" id="stTiers"></div>
+        </div>
+
+        <div class="upload-zone">
+          <div class="uz-head">
+            <div class="uz-icon uz-red">🎯</div>
+            <div><div class="uz-title">ملف الأهداف الشهرية</div><div class="uz-sub">يُرفع مرة في بداية كل شهر</div></div>
+          </div>
+          <input type="file" id="fTargets" accept=".xlsx,.xls" style="display:none" onchange="uploadTargets(this)">
+          <button class="btn btn-ghost btn-full" onclick="document.getElementById('fTargets').click()">📂 اختر الملف</button>
+          <div class="uz-status" id="stTargets"></div>
+        </div>
+
+        <div class="upload-zone">
+          <div class="uz-head">
+            <div class="uz-icon uz-green">💰</div>
+            <div><div class="uz-title">ملف المبيعات اليومية</div><div class="uz-sub">اسم المندوب | رقم المادة | القيمة — يومياً</div></div>
+          </div>
+          <input type="file" id="fSales" accept=".xlsx,.xls" style="display:none" onchange="uploadSales(this)">
+          <button class="btn btn-ghost btn-full" onclick="document.getElementById('fSales').click()">📂 اختر الملف</button>
+          <div class="uz-status" id="stSales"></div>
+        </div>
+      </div>
+
+      <!-- AGENTS ADMIN -->
+      <div class="admin-panel" id="ap-agents">
+        <div style="margin-bottom:12px;">
+          <button class="btn btn-red" onclick="openAddAgent()">+ إضافة مندوب</button>
+        </div>
+        <div class="table-wrap">
+          <div id="adminAgentsList"><div class="empty"><div class="ei">👥</div><p>لا يوجد مناديب</p></div></div>
+        </div>
+      </div>
+
+      <!-- ITEMS VIEW -->
+      <div class="admin-panel" id="ap-items">
+        <div class="sec-head" style="margin-bottom:10px;">
+          <span class="sec-sub" id="itemsCount"></span>
+        </div>
+        <div class="table-wrap">
+          <div id="itemsTable"><div class="empty"><div class="ei">📦</div><p>لم يُرفع ملف الأصناف بعد</p></div></div>
+        </div>
+      </div>
+
+      <!-- TIERS VIEW -->
+      <div class="admin-panel" id="ap-tiers">
+        <div class="table-wrap">
+          <div id="tiersTable"><div class="empty"><div class="ei">🗂</div><p>لم يُرفع ملف الشرائح بعد</p></div></div>
+        </div>
+      </div>
+
+      <!-- TARGETS VIEW -->
+      <div class="admin-panel" id="ap-targets">
+        <div style="margin-bottom:10px;">
+          <select class="sel" id="targetsMonthSel" onchange="loadTargetsTable()" style="max-width:180px;"></select>
+        </div>
+        <div class="table-wrap">
+          <div id="targetsTable"><div class="empty"><div class="ei">🎯</div><p>لم يُرفع ملف الأهداف بعد</p></div></div>
+        </div>
+      </div>
+
+      <!-- SALES VIEW -->
+      <div class="admin-panel" id="ap-sales">
+        <div style="margin-bottom:10px;">
+          <select class="sel" id="salesMonthSel" onchange="loadSalesTable()" style="max-width:180px;"></select>
+        </div>
+        <div class="table-wrap">
+          <div id="salesTable"><div class="empty"><div class="ei">💰</div><p>لم يُرفع ملف المبيعات بعد</p></div></div>
+        </div>
+      </div>
+
+      <!-- USERS -->
+      <div class="admin-panel" id="ap-users">
+        <div style="margin-bottom:12px;">
+          <button class="btn btn-red" onclick="openAddUser()">+ إضافة مستخدم</button>
+        </div>
+        <div class="table-wrap" id="usersTable">
+          <div class="empty"><div class="ei">🔑</div><p>جاري التحميل...</p></div>
+        </div>
+      </div>
+
+      <!-- LOG -->
+      <div class="admin-panel" id="ap-log">
+        <div class="table-wrap" id="logTable">
+          <div class="empty"><div class="ei">📋</div><p>لا يوجد سجل بعد</p></div>
+        </div>
+      </div>
+
+    </div><!-- end pg-admin -->
+
+  </div><!-- end content -->
+
+  <nav class="bottom-nav">
+    <button class="nav-btn active" onclick="goPg('dash',this)"><span class="ni">📊</span><span>الرئيسية</span></button>
+    <button class="nav-btn" onclick="goPg('agents',this)"><span class="ni">👥</span><span>المناديب</span></button>
+    <button class="nav-btn" onclick="goPg('wa',this)"><span class="ni">💬</span><span>واتساب</span></button>
+    <button class="nav-btn" onclick="goPg('admin',this)"><span class="ni">⚙️</span><span>المدير</span></button>
+  </nav>
+</div>
+
+<!-- AGENT MODAL -->
+<div class="overlay" id="agentModal">
+  <div class="modal">
+    <div class="modal-handle"></div>
+    <div class="modal-title" id="agentModalTitle">إضافة مندوب</div>
+    <div class="field"><label class="inp-label">الاسم</label><input class="inp" id="mName" placeholder="أحمد محمد"></div>
+    <div class="field"><label class="inp-label">واتساب</label><input class="inp" id="mWa" placeholder="9665XXXXXXXX" type="tel"></div>
+    <div class="field"><label class="inp-label">أيام العمل الشهرية</label><input class="inp" id="mDays" type="number" value="26" min="1" max="31"></div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="closeModal('agentModal')">إلغاء</button>
+      <button class="btn btn-red" onclick="saveAgent()">حفظ</button>
+    </div>
+  </div>
+</div>
+
+<!-- USER MODAL -->
+<div class="overlay" id="userModal">
+  <div class="modal">
+    <div class="modal-handle"></div>
+    <div class="modal-title" id="userModalTitle">إضافة مستخدم</div>
+    <div class="field"><label class="inp-label">اسم المستخدم</label><input class="inp" id="muName" placeholder="admin"></div>
+    <div class="field"><label class="inp-label">كلمة المرور</label><input class="inp" id="muPass" type="password" placeholder="••••••••"></div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="closeModal('userModal')">إلغاء</button>
+      <button class="btn btn-red" onclick="saveUser()">حفظ</button>
+    </div>
+  </div>
+</div>
+
+<div id="toast"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<script>
+/* ═══════════════════════════════════════
+   CONFIG
+═══════════════════════════════════════ */
+const SB_URL = 'https://jlxbcaxruvhpmrkaslqk.supabase.co';
+const SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpseGJjYXhydXZocG1ya2FzbHFrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM2Mzg0NzQsImV4cCI6MjA4OTIxNDQ3NH0.MqU6lC7QsJb52BlLd99FVoz9qwysikAWMzUGs0r77nA';
+
+const H = {
+  'Content-Type':'application/json',
+  'apikey': SB_KEY,
+  'Authorization': `Bearer ${SB_KEY}`,
+  'Prefer': 'return=minimal'
+};
+const HG = { 'apikey': SB_KEY, 'Authorization': `Bearer ${SB_KEY}` };
+
+async function db(table, method='GET', body=null, q='') {
+  const url = `${SB_URL}/rest/v1/${table}${q}`;
+  const opts = { method, headers: method==='GET' ? HG : H };
+  if (body) opts.body = JSON.stringify(body);
+  const res = await fetch(url, opts);
+  if (!res.ok) {
+    let msg = `DB error (${res.status})`;
+    try { const e = await res.json(); msg = e.message || e.details || msg; } catch(_){}
+    throw new Error(msg);
+  }
+  const txt = await res.text();
+  if (!txt) return true;
+  try { return JSON.parse(txt); } catch(_) { return true; }
+}
+
+/* ═══════════════════════════════════════
+   STATE
+═══════════════════════════════════════ */
+let me = null;
+let editingAgent = null;
+let editingUser  = null;
+let agents = [], tiers = [], items = [], targets = [], sales = [];
+let selectedAgentMonth = getMonthKey();
+
+/* ═══════════════════════════════════════
+   UTILS
+═══════════════════════════════════════ */
+function getMonthKey(offset=0) {
+  const d = new Date();
+  d.setMonth(d.getMonth() + offset);
+  return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}`;
+}
+
+function monthLabel(key) {
+  const [y,m] = key.split('-');
+  const names = ['يناير','فبراير','مارس','أبريل','مايو','يونيو','يوليو','أغسطس','سبتمبر','أكتوبر','نوفمبر','ديسمبر'];
+  return `${names[parseInt(m)-1]} ${y}`;
+}
+
+function norm(s) {
+  if (!s) return '';
+  return String(s).trim()
+    .replace(/\s+/g,' ')
+    .replace(/[أإآ]/g,'ا')
+    .replace(/[٠-٩]/g,d=>'٠١٢٣٤٥٦٧٨٩'.indexOf(d))
+    .replace(/ة/g,'ه').replace(/ى/g,'ي')
+    .toLowerCase();
+}
+
+function fmt(n, dec=2) {
+  return parseFloat(n||0).toLocaleString('ar-SA',{maximumFractionDigits:dec});
+}
+
+function parseNum(s) {
+  return parseFloat(String(s||0).replace(/,/g,'').replace(/[٠-٩]/g,d=>'٠١٢٣٤٥٦٧٨٩'.indexOf(d))) || 0;
+}
+
+function toast(msg, type='ok') {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = `on ${type}`;
+  clearTimeout(t._t);
+  t._t = setTimeout(()=>t.className='', 3500);
+}
+
+function loading(on) {
+  document.getElementById('loadingBar').classList.toggle('on', on);
+}
+
+function openModal(id) { document.getElementById(id).classList.add('on'); }
+function closeModal(id) { document.getElementById(id).classList.remove('on'); }
+
+document.querySelectorAll('.overlay').forEach(o => {
+  o.addEventListener('click', e => { if(e.target===o) o.classList.remove('on'); });
+});
+
+/* ═══════════════════════════════════════
+   AUTH
+═══════════════════════════════════════ */
+async function doLogin() {
+  const u = document.getElementById('uname').value.trim();
+  const p = document.getElementById('upass').value.trim();
+  const rem = document.getElementById('rem').checked;
+  const btn = document.getElementById('loginBtn');
+  const err = document.getElementById('loginErr');
+
+  if (!u||!p) { showErr('أدخل اسم المستخدم وكلمة المرور'); return; }
+
+  btn.innerHTML = '<span class="spin"></span>';
+  btn.disabled = true;
+  err.style.display = 'none';
+
+  try {
+    const rows = await db('users','GET',null,`?username=eq.${encodeURIComponent(u)}&password_hash=eq.${encodeURIComponent(p)}`);
+    if (!rows.length) { showErr('اسم المستخدم أو كلمة المرور غير صحيحة'); }
+    else {
+      me = rows[0];
+      if (rem) localStorage.setItem('gm_me', JSON.stringify(me));
+      startApp();
+    }
+  } catch(e) { showErr('خطأ في الاتصال: ' + e.message); }
+
+  btn.innerHTML = 'دخول'; btn.disabled = false;
+}
+
+function showErr(msg) {
+  const e = document.getElementById('loginErr');
+  e.textContent = msg; e.style.display = 'block';
+}
+
+document.getElementById('upass').addEventListener('keydown', e => { if(e.key==='Enter') doLogin(); });
+
+function doLogout() {
+  localStorage.removeItem('gm_me');
+  me = null;
+  document.getElementById('app').style.display = 'none';
+  document.getElementById('loginScreen').style.display = 'flex';
+}
+
+/* ═══════════════════════════════════════
+   APP START
+═══════════════════════════════════════ */
+async function startApp() {
+  document.getElementById('loginScreen').style.display = 'none';
+  document.getElementById('app').style.display = 'flex';
+  updateMonthUI();
+  await refreshCache();
+  renderDash();
+  buildAgentMonthTabs();
+}
+
+function updateMonthUI() {
+  const now = new Date();
+  const names = ['يناير','فبراير','مارس','أبريل','مايو','يونيو','يوليو','أغسطس','سبتمبر','أكتوبر','نوفمبر','ديسمبر'];
+  const mn = names[now.getMonth()];
+  const yr = now.getFullYear();
+  const dim = new Date(yr, now.getMonth()+1, 0).getDate();
+  const dp = now.getDate();
+  const dl = dim - dp;
+  const pct = Math.round(dp/dim*100);
+
+  document.getElementById('monthPill').textContent = `${mn} ${yr}`;
+  document.getElementById('mbMonth').textContent = `${mn} ${yr}`;
+  document.getElementById('mbDays').textContent = dp;
+  document.getElementById('mbLeft').textContent = `⏳ متبقي ${dl} يوم`;
+  document.getElementById('mbBar').style.width = pct+'%';
+  document.getElementById('dashDate').textContent = `اليوم ${dp}/${now.getMonth()+1}`;
+}
+
+async function refreshCache() {
+  loading(true);
+  try {
+    const month = getMonthKey();
+    [agents, tiers, items, targets, sales] = await Promise.all([
+      db('agents','GET',null,'?active=eq.true&order=name'),
+      db('tiers','GET',null,''),
+      db('items','GET',null,''),
+      db('targets','GET',null,`?month=eq.${month}`),
+      db('sales','GET',null,`?month=eq.${month}`)
+    ]);
+  } catch(e) { toast('خطأ في تحميل البيانات: '+e.message,'fail'); }
+  loading(false);
+}
+
+/* ═══════════════════════════════════════
+   CALCULATIONS
+═══════════════════════════════════════ */
+function calcAgent(agentId, month) {
+  const aTgts = targets.filter(t => t.agent_id===agentId && t.month===month);
+  const aSales = sales.filter(s => s.agent_id===agentId && s.month===month);
+
+  // Group sales by tier
+  const tierSales = {};
+  for (const s of aSales) {
+    const tm = tiers.find(t => norm(String(t.item_code))===norm(String(s.item_code)));
+    if (tm) tierSales[tm.tier_name] = (tierSales[tm.tier_name]||0) + parseFloat(s.achieved_value||0);
+  }
+
+  let totTarget=0, totAchieved=0;
+  const tierData = aTgts.map(t => {
+    const ach = tierSales[t.tier_name]||0;
+    const pct = t.target_value>0 ? (ach/t.target_value)*100 : 0;
+    totTarget += parseFloat(t.target_value||0);
+    totAchieved += ach;
+    return {
+      name: t.tier_name,
+      target: parseFloat(t.target_value||0),
+      achieved: ach,
+      pct: Math.round(pct*10)/10,
+      req: parseFloat(t.required_pct||75),
+      status: pct>=parseFloat(t.required_pct||75)?'green':pct>=parseFloat(t.required_pct||75)*0.75?'yellow':'red'
+    };
+  });
+
+  const overallPct = totTarget>0 ? Math.round((totAchieved/totTarget)*100) : 0;
+  const avgReq = aTgts.length ? aTgts.reduce((s,t)=>s+parseFloat(t.required_pct||75),0)/aTgts.length : 75;
+  const status = overallPct>=avgReq?'green':overallPct>=avgReq*0.75?'yellow':'red';
+  const now = new Date();
+  const daysLeft = new Date(now.getFullYear(),now.getMonth()+1,0).getDate() - now.getDate();
+
+  return { tierData, totTarget, totAchieved, overallPct, status, daysLeft, hasData: aTgts.length>0 };
+}
+
+function statusColor(s) {
+  return s==='green'?'var(--green2)':s==='yellow'?'var(--yellow2)':'var(--danger)';
+}
+
+/* ═══════════════════════════════════════
+   DASHBOARD
+═══════════════════════════════════════ */
+function renderDash() {
+  const month = getMonthKey();
+  let ok=0, risk=0, totalPct=0;
+  const alerts = [];
+
+  const cards = agents.map(a => {
+    const d = calcAgent(a.id, month);
+    if (!d.hasData) return '';
+    if (d.status==='green') ok++;
+    if (d.status==='red') { risk++; alerts.push({name:a.name,pct:d.overallPct}); }
+    totalPct += d.overallPct;
+
+    const avClass = d.status==='green'?'av-green':d.status==='yellow'?'av-yellow':d.status==='red'?'av-red':'av-gray';
+    const pctClass = d.status==='green'?'pct-green':d.status==='yellow'?'pct-yellow':d.status==='red'?'pct-red':'pct-gray';
+    const barClass = `pbar-${d.status}`;
+    const initials = a.name.split(' ').slice(0,2).map(w=>w[0]).join('');
+
+    return `<div class="agent-item" id="di_${a.id}">
+      <div class="agent-row" onclick="toggleAgent('di_${a.id}','${a.id}','${month}')">
+        <div class="agent-avatar ${avClass}">${initials}</div>
+        <div class="agent-info">
+          <div class="agent-name">${a.name}</div>
+          <div class="agent-meta">${d.tierData.length} شريحة · متبقي ${d.daysLeft} يوم</div>
+        </div>
+        <div class="agent-right">
+          <div class="agent-pct ${pctClass}">${d.overallPct}%</div>
+          <div class="chevron">▼</div>
+        </div>
+      </div>
+      <div class="agent-panel">
+        <div class="agent-panel-inner" id="dip_${a.id}">
+          ${buildAgentPanel(a.id, month, d)}
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+
+  document.getElementById('kpiTotal').textContent = agents.length;
+  document.getElementById('kpiOk').textContent = ok;
+  document.getElementById('kpiRisk').textContent = risk;
+  document.getElementById('kpiAvg').textContent = agents.length ? Math.round(totalPct/agents.length)+'%' : '—';
+
+  // Alerts
+  const aw = document.getElementById('alertsWrap');
+  if (alerts.length) {
+    aw.innerHTML = alerts.map(a=>`
+      <div class="alert-strip">
+        <span class="as-icon">⚠️</span>
+        <span class="as-text">${a.name} — ${a.pct}% فقط</span>
+        <span class="badge badge-red">${a.pct}%</span>
+      </div>`).join('');
+  } else aw.innerHTML='';
+
+  document.getElementById('dashList').innerHTML = cards || '<div class="empty"><div class="ei">📊</div><p>لا توجد بيانات للشهر الحالي</p></div>';
+}
+
+function buildAgentPanel(agentId, month, data) {
+  if (!data) data = calcAgent(agentId, month);
+  if (!data.hasData) return '<p style="padding:12px;color:var(--text3);font-size:13px;">لا توجد أهداف لهذا الشهر</p>';
+
+  const dailyNeeded = data.daysLeft>0 ? ((data.totTarget-data.totAchieved)/data.daysLeft) : 0;
+  const agent = agents.find(a=>a.id===agentId);
+
+  const tiersHTML = data.tierData.map(t => `
+    <div class="tier-row">
+      <div class="tier-top">
+        <span class="tier-name">${t.name}</span>
+        <span class="tier-pct" style="color:${statusColor(t.status)}">${t.pct}%</span>
+      </div>
+      <div class="pbar-wrap">
+        <div class="pbar-fill pbar-${t.status}" style="width:${Math.min(t.pct,100)}%"></div>
+      </div>
+      <div class="tier-nums">
+        <span>محقق: ${fmt(t.achieved)}</span>
+        <span>هدف: ${fmt(t.target)}</span>
+        <span>مطلوب: ${t.req}%</span>
+        <span>${t.status==='green'?'✅':t.status==='yellow'?'⚠️':'🔴'}</span>
+      </div>
+    </div>`).join('');
+
+  return `
+    <div class="total-bar">
+      <div class="tb-l">
+        <div class="l1">الهدف الشهري الإجمالي</div>
+        <div class="l2">${fmt(data.totAchieved)} / ${fmt(data.totTarget)}</div>
+      </div>
+      <div class="tb-r">${data.overallPct}%</div>
+    </div>
+    ${tiersHTML}
+    <div style="background:var(--bg);border-radius:10px;padding:12px;margin:12px 0;display:flex;justify-content:space-between;align-items:center;">
+      <div><div style="font-size:11px;color:var(--text3)">المعدل اليومي المطلوب</div>
+      <div style="font-size:20px;font-weight:900;color:var(--gold)">${fmt(dailyNeeded)}</div></div>
+      <div style="text-align:left"><div style="font-size:11px;color:var(--text3)">متبقي</div>
+      <div style="font-size:20px;font-weight:900;color:var(--red)">${data.daysLeft} يوم</div></div>
+    </div>
+    ${agent ? `<button class="btn btn-wa btn-full" onclick="sendWA('${agentId}')">📲 إرسال تقرير واتساب</button>` : ''}`;
+}
+
+function toggleAgent(itemId, agentId, month) {
+  const el = document.getElementById(itemId);
+  el.classList.toggle('open');
+}
+
+/* ═══════════════════════════════════════
+   AGENTS PAGE
+═══════════════════════════════════════ */
+function buildAgentMonthTabs() {
+  const tabs = [];
+  for (let i=0; i>=-5; i--) {
+    const key = getMonthKey(i);
+    tabs.push(`<div class="mtab ${key===getMonthKey()?'active':''}" onclick="selectAgentMonth('${key}',this)">${monthLabel(key)}</div>`);
+  }
+  // Past 5 months
+  for (let i=-1; i>=-5; i--) {
+    const key = getMonthKey(i);
+    tabs.push(`<div class="mtab" onclick="selectAgentMonth('${key}',this)">${monthLabel(key)}</div>`);
+  }
+  document.getElementById('agentMonthTabs').innerHTML = 
+    `<div class="mtab active" onclick="selectAgentMonth('${getMonthKey()}',this)">${monthLabel(getMonthKey())}</div>` +
+    [-1,-2,-3,-4,-5].map(i=>{
+      const key=getMonthKey(i);
+      return `<div class="mtab" onclick="selectAgentMonth('${key}',this)">${monthLabel(key)}</div>`;
+    }).join('');
+}
+
+async function selectAgentMonth(month, el) {
+  selectedAgentMonth = month;
+  document.querySelectorAll('#agentMonthTabs .mtab').forEach(t=>t.classList.remove('active'));
+  el.classList.add('active');
+
+  loading(true);
+  try {
+    targets = await db('targets','GET',null,`?month=eq.${month}`);
+    sales   = await db('sales','GET',null,`?month=eq.${month}`);
+  } catch(e) {}
+  loading(false);
+  renderAgentsPage();
+}
+
+function renderAgentsPage() {
+  const month = selectedAgentMonth;
+  document.getElementById('agentsCount').textContent = `${agents.length} مندوب`;
+
+  const html = agents.map(a => {
+    const d = calcAgent(a.id, month);
+    const avClass = d.hasData?(d.status==='green'?'av-green':d.status==='yellow'?'av-yellow':'av-red'):'av-gray';
+    const pctClass = d.hasData?(d.status==='green'?'pct-green':d.status==='yellow'?'pct-yellow':'pct-red'):'pct-gray';
+    const initials = a.name.split(' ').slice(0,2).map(w=>w[0]).join('');
+
+    return `<div class="agent-item" id="ag_${a.id}">
+      <div class="agent-row" onclick="toggleAgentFull('ag_${a.id}','${a.id}')">
+        <div class="agent-avatar ${avClass}">${initials}</div>
+        <div class="agent-info">
+          <div class="agent-name">${a.name}</div>
+          <div class="agent-meta">${a.whatsapp||'—'} · ${a.working_days} يوم عمل</div>
+        </div>
+        <div class="agent-right">
+          <div class="agent-pct ${pctClass}">${d.hasData?d.overallPct+'%':'—'}</div>
+          <div class="chevron">▼</div>
+        </div>
+      </div>
+      <div class="agent-panel">
+        <div class="agent-panel-inner">
+          ${buildAgentPanel(a.id, month, d)}
+          ${buildCompareChart(a.id)}
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+
+  document.getElementById('agentsList').innerHTML = html ||
+    '<div class="empty"><div class="ei">👥</div><p>لا يوجد مناديب</p></div>';
+}
+
+function toggleAgentFull(itemId) {
+  document.getElementById(itemId).classList.toggle('open');
+}
+
+function buildCompareChart(agentId) {
+  const months = [0,-1,-2,-3].map(i=>getMonthKey(i));
+  const bars = months.map(m => {
+    const tgts = targets.filter(t=>t.agent_id===agentId&&t.month===m);
+    const sls  = sales.filter(s=>s.agent_id===agentId&&s.month===m);
+    let tot=0, ach=0;
+    for (const t of tgts) {
+      tot += parseFloat(t.target_value||0);
+      const ts = {};
+      for (const s of sls) {
+        const tm = tiers.find(x=>norm(String(x.item_code))===norm(String(s.item_code)));
+        if (tm) ts[tm.tier_name]=(ts[tm.tier_name]||0)+parseFloat(s.achieved_value||0);
+      }
+      ach += ts[t.tier_name]||0;
+    }
+    const pct = tot>0?Math.round(ach/tot*100):0;
+    return { label: monthLabel(m).split(' ')[0], pct };
+  });
+
+  const barsHTML = bars.map(b=>`
+    <div class="compare-bar-row">
+      <span class="cbr-label">${b.label}</span>
+      <div class="cbr-bar">
+        <div class="cbr-fill pbar-${b.pct>=75?'green':b.pct>=50?'yellow':'red'}" style="width:${b.pct}%">
+          <span>${b.pct}%</span>
+        </div>
+      </div>
+    </div>`).join('');
+
+  return `<div class="compare-wrap">
+    <div class="compare-title">📈 مقارنة الأشهر الأخيرة</div>
+    ${barsHTML}
+  </div>`;
+}
+
+/* ═══════════════════════════════════════
+   WHATSAPP
+═══════════════════════════════════════ */
+function buildWAMsg(agent) {
+  const month = getMonthKey();
+  const d = calcAgent(agent.id, month);
+  const now = new Date();
+  const dateStr = now.toLocaleDateString('ar-SA',{day:'numeric',month:'long',year:'numeric'});
+  const bars = p => '█'.repeat(Math.min(Math.round(p/10),10))+'░'.repeat(Math.max(10-Math.round(p/10),0));
+  const icon = s => s==='green'?'✅':s==='yellow'?'⚠️':'🔴';
+
+  const tiersText = d.tierData.map(t=>{
+    const daily = d.daysLeft>0?((t.target-t.achieved)/d.daysLeft).toFixed(0):0;
+    return `📦 ${t.name}\n${bars(t.pct)} ${t.pct}%\nمحقق: ${fmt(t.achieved)} | هدف: ${fmt(t.target)}\nمطلوب يومياً: ${fmt(daily)} ${icon(t.status)}`;
+  }).join('\n\n');
+
+  let smart='';
+  if (d.tierData.every(t=>t.status==='green')) smart='🎉 رائع! أنت تسير بشكل ممتاز. استمر!';
+  else if (d.daysLeft<=3) smart=`⚡ تنبيه عاجل! متبقي ${d.daysLeft} أيام فقط!`;
+  else {
+    const worst = d.tierData.filter(t=>t.status!=='green').sort((a,b)=>a.pct-b.pct)[0];
+    if (worst) smart=`💡 ركّز على ${worst.name} — ${fmt((worst.target-worst.achieved)/d.daysLeft)} يومياً خلال ${d.daysLeft} يوم.`;
+  }
+
+  return `📊 تقرير إنجازك اليومي\nGolden Mark For Import & Export\n━━━━━━━━━━━━━━━━━━━━\n👤 ${agent.name} | ${dateStr}\n⏳ متبقي: ${d.daysLeft} يوم\n\n${tiersText}\n\n🏁 الإجمالي: ${d.overallPct}%\n${fmt(d.totAchieved)} / ${fmt(d.totTarget)}\n\n${smart}\n━━━━━━━━━━━━━━━━━━━━\nالهدف الشهري • Golden Mark`;
+}
+
+function sendWA(agentId) {
+  const a = agents.find(x=>x.id===agentId);
+  if (!a?.whatsapp) { toast('لا يوجد رقم واتساب','fail'); return; }
+  const msg = buildWAMsg(a);
+  window.open(`https://wa.me/${a.whatsapp}?text=${encodeURIComponent(msg)}`,'_blank');
+}
+
+function renderWAPage() {
+  const month = getMonthKey();
+  document.getElementById('waList').innerHTML = agents.length ? agents.map(a=>{
+    const d = calcAgent(a.id, month);
+    return `<div class="wa-item">
+      <div class="agent-avatar ${d.status==='green'?'av-green':d.status==='yellow'?'av-yellow':'av-red'}">${a.name.split(' ').slice(0,2).map(w=>w[0]).join('')}</div>
+      <div class="wa-info">
+        <div class="wa-name">${a.name}</div>
+        <div class="wa-meta">${a.whatsapp||'لا يوجد رقم'} · ${d.hasData?d.overallPct+'%':'لا بيانات'}</div>
+      </div>
+      <button class="btn btn-wa btn-sm" onclick="sendWA('${a.id}')">إرسال</button>
+    </div>`;
+  }).join('') : '<div class="empty"><div class="ei">💬</div><p>لا توجد بيانات</p></div>';
+}
+
+function sendAll() {
+  if (!agents.length) { toast('لا يوجد مناديب','fail'); return; }
+  agents.forEach((a,i)=>setTimeout(()=>sendWA(a.id),i*600));
+  toast(`جاري فتح ${agents.length} محادثة...`,'ok');
+}
+
+/* ═══════════════════════════════════════
+   NAVIGATION
+═══════════════════════════════════════ */
+function goPg(name, btn) {
+  document.querySelectorAll('.pg').forEach(p=>p.classList.remove('on'));
+  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('pg-'+name).classList.add('on');
+  btn.classList.add('active');
+
+  if (name==='agents') renderAgentsPage();
+  if (name==='wa')     renderWAPage();
+  if (name==='admin')  loadAdminInit();
+  if (name==='dash')   { refreshCache().then(renderDash); }
+}
+
+/* ═══════════════════════════════════════
+   ADMIN
+═══════════════════════════════════════ */
+function switchAdmin(panel, btn) {
+  document.querySelectorAll('.admin-panel').forEach(p=>p.classList.remove('on'));
+  document.querySelectorAll('.atab').forEach(b=>b.classList.remove('active'));
+  document.getElementById('ap-'+panel).classList.add('on');
+  btn.classList.add('active');
+
+  if (panel==='agents')  loadAdminAgents();
+  if (panel==='items')   loadItemsTable();
+  if (panel==='tiers')   loadTiersTable();
+  if (panel==='targets') loadTargetsTable();
+  if (panel==='sales')   loadSalesTable();
+  if (panel==='users')   loadUsersTable();
+  if (panel==='log')     loadLogTable();
+}
+
+async function loadAdminInit() {
+  loadAdminAgents();
+}
+
+/* ── Upload Helpers ── */
+function setStatus(id, msg, type) {
+  const el = document.getElementById(id);
+  el.textContent = msg;
+  el.className = `uz-status ${type}`;
+}
+
+function readXLS(file) {
+  return new Promise((res,rej)=>{
+    const r = new FileReader();
+    r.onload = e => {
+      try {
+        const wb = XLSX.read(e.target.result,{type:'binary',codepage:65001});
+        const ws = wb.Sheets[wb.SheetNames[0]];
+        res(XLSX.utils.sheet_to_json(ws,{header:1,defval:''}));
+      } catch(err){rej(err);}
+    };
+    r.onerror = rej;
+    r.readAsBinaryString(file);
+  });
+}
+
+/* ── Items ── */
+async function uploadItems(inp) {
+  const file = inp.files[0]; if(!file) return;
+  setStatus('stItems','⏳ جاري الرفع...','loading');
+  loading(true);
+  try {
+    const data = await readXLS(file);
+    const rows = data.filter(r=>r[0]&&r[1]).map(r=>({
+      item_name: String(r[0]).trim(),
+      item_code: String(r[1]).trim()
+    }));
+    if(!rows.length) throw new Error('الملف فارغ');
+    await db('items','DELETE',null,'?id=neq.00000000-0000-0000-0000-000000000000');
+    for(const r of rows) {
+      try { await db('items','POST',r); } catch(_){}
+    }
+    items = await db('items','GET',null,'');
+    setStatus('stItems',`✅ تم رفع ${rows.length} صنف بنجاح`,'ok');
+    toast(`✅ تم رفع ${rows.length} صنف`,'ok');
+    await logUpload('items', file.name, rows.length, []);
+  } catch(e) {
+    setStatus('stItems','❌ خطأ: '+e.message,'fail');
+    toast('❌ '+e.message,'fail');
+  }
+  loading(false); inp.value='';
+}
+
+/* ── Tiers ── */
+async function uploadTiers(inp) {
+  const file = inp.files[0]; if(!file) return;
+  setStatus('stTiers','⏳ جاري الرفع...','loading');
+  loading(true);
+  try {
+    const data = await readXLS(file);
+    if(!data.length) throw new Error('الملف فارغ');
+    const header = data[0];
+    const rows = [];
+    for(let c=0;c<header.length;c++) {
+      const tierName = String(header[c]||'').trim();
+      if(!tierName) continue;
+      for(let r=1;r<data.length;r++) {
+        const code = String(data[r][c]||'').trim();
+        if(code) rows.push({tier_name:tierName, item_code:code});
+      }
+    }
+    if(!rows.length) throw new Error('لا توجد بيانات');
+    await db('tiers','DELETE',null,'?id=neq.00000000-0000-0000-0000-000000000000');
+    for(const r of rows) {
+      try { await db('tiers','POST',r); } catch(_){}
+    }
+    tiers = await db('tiers','GET',null,'');
+    const tierNames = [...new Set(rows.map(r=>r.tier_name))];
+    setStatus('stTiers',`✅ تم رفع ${tierNames.length} شريحة (${rows.length} كود)`,'ok');
+    toast(`✅ ${tierNames.length} شريحة — ${rows.length} كود`,'ok');
+    await logUpload('tiers', file.name, tierNames.length, []);
+  } catch(e) {
+    setStatus('stTiers','❌ خطأ: '+e.message,'fail');
+    toast('❌ '+e.message,'fail');
+  }
+  loading(false); inp.value='';
+}
+
+/* ── Targets ── */
+async function uploadTargets(inp) {
+  const file = inp.files[0]; if(!file) return;
+  setStatus('stTargets','⏳ جاري الرفع...','loading');
+  loading(true);
+  try {
+    const data = await readXLS(file);
+    if(data.length<3) throw new Error('الملف يحتاج 3 صفوف على الأقل');
+    const month = getMonthKey();
+    const header = data[0];
+    const pctRow = data[1];
+    const agentRows = data.slice(2);
+
+    const nameIdx = header.findIndex(h=>norm(String(h||'')).includes('مندوب')||norm(String(h||''))==='اسم');
+    const waIdx   = header.findIndex(h=>norm(String(h||'')).includes('واتساب'));
+    const daysIdx = header.findIndex(h=>norm(String(h||'')).includes('ايام')||norm(String(h||'')).includes('أيام'));
+    const totIdx  = header.findIndex(h=>norm(String(h||'')).includes('الهدف الشهري')||norm(String(h||'')).includes('هدف شهري'));
+
+    if(nameIdx===-1) throw new Error('لم يُعثر على عمود "اسم_المندوب"');
+
+    const tierCols = header.map((h,i)=>{
+      if(i===nameIdx||i===waIdx||i===daysIdx||i===totIdx) return null;
+      const name = String(h||'').trim();
+      if(!name||norm(name)===norm('النسبة المطلوبة')) return null;
+      return {idx:i, name, req: parseFloat(pctRow[i])||75};
+    }).filter(Boolean);
+
+    const allAgents = await db('agents','GET',null,'?active=eq.true');
+    let updated=0; const notFound=[];
+
+    for(const row of agentRows) {
+      const aName = String(row[nameIdx]||'').trim();
+      if(!aName||norm(aName)===norm('النسبة المطلوبة')) continue;
+      const agent = allAgents.find(a=>norm(a.name)===norm(aName));
+      if(!agent) { notFound.push(aName); continue; }
+
+      const upd = {};
+      if(waIdx>=0&&row[waIdx]) upd.whatsapp = String(row[waIdx]).trim();
+      if(daysIdx>=0&&row[daysIdx]) upd.working_days = parseInt(row[daysIdx])||26;
+      if(Object.keys(upd).length) {
+        try { await db('agents','PATCH',upd,`?id=eq.${agent.id}`); } catch(_){}
+      }
+
+      await db('targets','DELETE',null,`?agent_id=eq.${agent.id}&month=eq.${month}`);
+      for(const tc of tierCols) {
+        const val = parseNum(row[tc.idx]);
+        if(val>0) {
+          try {
+            await db('targets','POST',{agent_id:agent.id,month,tier_name:tc.name,target_value:val,required_pct:tc.req});
+          } catch(_){}
+        }
+      }
+      updated++;
+    }
+
+    targets = await db('targets','GET',null,`?month=eq.${month}`);
+    agents  = await db('agents','GET',null,'?active=eq.true&order=name');
+
+    let msg = `✅ تم تحديث ${updated} مندوب`;
+    let type = 'ok';
+    if(notFound.length) { msg+=` | ⚠️ لم يُعثر: ${notFound.join(', ')}`; type='warn'; }
+    setStatus('stTargets', msg, type);
+    toast(msg.substring(0,50), type);
+    await logUpload('targets', file.name, updated, notFound);
+    renderDash();
+  } catch(e) {
+    setStatus('stTargets','❌ خطأ: '+e.message,'fail');
+    toast('❌ '+e.message,'fail');
+  }
+  loading(false); inp.value='';
+}
+
+/* ── Sales ── */
+async function uploadSales(inp) {
+  const file = inp.files[0]; if(!file) return;
+  setStatus('stSales','⏳ جاري الرفع...','loading');
+  loading(true);
+  try {
+    const data = await readXLS(file);
+    if(data.length<1) throw new Error('الملف فارغ');
+    const month = getMonthKey();
+    const allAgents = await db('agents','GET',null,'?active=eq.true');
+    await db('sales','DELETE',null,`?month=eq.${month}`);
+
+    let count=0;
+    const notFound=new Set();
+    let currentAgent = null;
+
+    for(const row of data) {
+      const colA = String(row[0]||'').trim();
+      const colB = String(row[1]||'').trim();
+      const colC = String(row[2]||'').trim();
+
+      // سطر اسم المندوب: العمود A يحتوي نصاً، B وC فارغان
+      if(colA && !colB && !colC) {
+        const agent = allAgents.find(a=>norm(a.name)===norm(colA));
+        if(agent) {
+          currentAgent = agent;
+        } else {
+          notFound.add(colA);
+          currentAgent = null;
+        }
+        continue;
+      }
+
+      // سطر بيانات: B = كود، C = قيمة
+      if(currentAgent && colB) {
+        const code = colB;
+        const val  = parseNum(colC);
+        try {
+          await db('sales','POST',{
+            agent_id: currentAgent.id,
+            month,
+            item_code: code,
+            achieved_value: val
+          });
+          count++;
+        } catch(_){}
+      }
+    }
+
+    sales = await db('sales','GET',null,`?month=eq.${month}`);
+    let msg=`✅ تم رفع ${count} سطر`; let type='ok';
+    if(notFound.size) { msg+=` | ⚠️ لم يُعثر: ${[...notFound].join(', ')}`; type='warn'; }
+    setStatus('stSales',msg,type);
+    toast(msg.substring(0,50),type);
+    await logUpload('sales', file.name, count, [...notFound]);
+    renderDash();
+  } catch(e) {
+    setStatus('stSales','❌ خطأ: '+e.message,'fail');
+    toast('❌ '+e.message,'fail');
+  }
+  loading(false); inp.value='';
+}
+
+/* ── Log ── */
+async function logUpload(type, name, updated, notFound) {
+  try {
+    await db('upload_log','POST',{upload_type:type,file_name:name,agents_updated:updated,agents_not_found:notFound,notes:null});
+  } catch(_){}
+}
+
+/* ── Admin Tables ── */
+async function loadAdminAgents() {
+  const all = await db('agents','GET',null,'?order=name');
+  agents = all.filter(a=>a.active);
+  document.getElementById('adminAgentsList').innerHTML = all.length ?
+    all.map(a=>`<div class="admin-agent-row">
+      <div class="aar-info">
+        <div class="aar-name">${a.name}</div>
+        <div class="aar-meta">${a.whatsapp||'—'} · ${a.working_days} يوم · <span class="badge ${a.active?'badge-green':'badge-gray'}">${a.active?'نشط':'غير نشط'}</span></div>
+      </div>
+      <div class="aar-actions">
+        <button class="btn btn-gold btn-sm" onclick="openEditAgent('${a.id}')">تعديل</button>
+        <button class="btn btn-danger btn-sm" onclick="delAgent('${a.id}')">حذف</button>
+      </div>
+    </div>`).join('') :
+    '<div class="empty"><div class="ei">👥</div><p>لا يوجد مناديب</p></div>';
+}
+
+async function loadItemsTable() {
+  const data = await db('items','GET',null,'?order=item_code&limit=200');
+  document.getElementById('itemsCount').textContent = `${data.length} صنف`;
+  document.getElementById('itemsTable').innerHTML = data.length ?
+    `<table class="data-table"><thead><tr><th>رقم المادة</th><th>اسم المادة</th></tr></thead><tbody>
+    ${data.map(r=>`<tr><td><span class="badge badge-gold">${r.item_code}</span></td><td>${r.item_name}</td></tr>`).join('')}
+    </tbody></table>` :
+    '<div class="empty"><div class="ei">📦</div><p>لم يُرفع ملف الأصناف بعد</p></div>';
+}
+
+async function loadTiersTable() {
+  const data = await db('tiers','GET',null,'?order=tier_name&limit=500');
+  const grouped = {};
+  data.forEach(r=>{ if(!grouped[r.tier_name]) grouped[r.tier_name]=[]; grouped[r.tier_name].push(r.item_code); });
+  document.getElementById('tiersTable').innerHTML = Object.keys(grouped).length ?
+    `<table class="data-table"><thead><tr><th>الشريحة</th><th>الأكواد</th></tr></thead><tbody>
+    ${Object.entries(grouped).map(([name,codes])=>`<tr>
+      <td><strong>${name}</strong></td>
+      <td style="font-size:11px">${codes.map(c=>`<span class="badge badge-gold" style="margin:2px">${c}</span>`).join('')}</td>
+    </tr>`).join('')}
+    </tbody></table>` :
+    '<div class="empty"><div class="ei">🗂</div><p>لم يُرفع ملف الشرائح بعد</p></div>';
+}
+
+async function loadTargetsTable() {
+  const sel = document.getElementById('targetsMonthSel');
+  if(!sel.options.length) {
+    for(let i=0;i>=-5;i--) {
+      const key=getMonthKey(i);
+      sel.add(new Option(monthLabel(key),key));
+    }
+  }
+  const month = sel.value || getMonthKey();
+  const data = await db('targets','GET',null,`?month=eq.${month}&order=tier_name&limit=500`);
+  const allAgents = await db('agents','GET',null,'');
+  document.getElementById('targetsTable').innerHTML = data.length ?
+    `<table class="data-table"><thead><tr><th>المندوب</th><th>الشريحة</th><th>الهدف</th><th>النسبة</th></tr></thead><tbody>
+    ${data.map(r=>{
+      const a = allAgents.find(x=>x.id===r.agent_id);
+      return `<tr><td>${a?.name||'—'}</td><td>${r.tier_name}</td><td>${fmt(r.target_value)}</td><td>${r.required_pct}%</td></tr>`;
+    }).join('')}
+    </tbody></table>` :
+    '<div class="empty"><div class="ei">🎯</div><p>لا توجد أهداف لهذا الشهر</p></div>';
+}
+
+async function loadSalesTable() {
+  const sel = document.getElementById('salesMonthSel');
+  if(!sel.options.length) {
+    for(let i=0;i>=-5;i--) {
+      const key=getMonthKey(i);
+      sel.add(new Option(monthLabel(key),key));
+    }
+  }
+  const month = sel.value || getMonthKey();
+  const data = await db('sales','GET',null,`?month=eq.${month}&order=agent_id&limit=1000`);
+  const allAgents = await db('agents','GET',null,'');
+  document.getElementById('salesTable').innerHTML = data.length ?
+    `<table class="data-table"><thead><tr><th>المندوب</th><th>كود المادة</th><th>القيمة</th></tr></thead><tbody>
+    ${data.map(r=>{
+      const a = allAgents.find(x=>x.id===r.agent_id);
+      return `<tr><td>${a?.name||'—'}</td><td><span class="badge badge-gold">${r.item_code}</span></td><td>${fmt(r.achieved_value)}</td></tr>`;
+    }).join('')}
+    </tbody></table>` :
+    '<div class="empty"><div class="ei">💰</div><p>لا توجد مبيعات لهذا الشهر</p></div>';
+}
+
+async function loadUsersTable() {
+  const data = await db('users','GET',null,'?order=username');
+  document.getElementById('usersTable').innerHTML = data.length ?
+    `<div>${data.map(u=>`<div class="admin-agent-row">
+      <div class="aar-info"><div class="aar-name">${u.username}</div><div class="aar-meta">${u.role}</div></div>
+      <div class="aar-actions">
+        <button class="btn btn-danger btn-sm" onclick="delUser('${u.id}','${u.username}')">حذف</button>
+      </div>
+    </div>`).join('')}</div>` :
+    '<div class="empty"><p>لا يوجد مستخدمين</p></div>';
+}
+
+async function loadLogTable() {
+  const data = await db('upload_log','GET',null,'?order=created_at.desc&limit=50');
+  document.getElementById('logTable').innerHTML = data.length ?
+    `<table class="data-table"><thead><tr><th>النوع</th><th>الملف</th><th>عدد</th><th>التاريخ</th></tr></thead><tbody>
+    ${data.map(r=>`<tr>
+      <td><span class="badge badge-gold">${r.upload_type}</span></td>
+      <td style="font-size:11px">${r.file_name||'—'}</td>
+      <td>${r.agents_updated||0}</td>
+      <td style="font-size:11px">${new Date(r.created_at).toLocaleString('ar-SA')}</td>
+    </tr>`).join('')}
+    </tbody></table>` :
+    '<div class="empty"><div class="ei">📋</div><p>لا يوجد سجل بعد</p></div>';
+}
+
+/* ═══════════════════════════════════════
+   AGENTS CRUD
+═══════════════════════════════════════ */
+function openAddAgent() {
+  editingAgent = null;
+  document.getElementById('agentModalTitle').textContent = 'إضافة مندوب';
+  document.getElementById('mName').value='';
+  document.getElementById('mWa').value='';
+  document.getElementById('mDays').value=26;
+  openModal('agentModal');
+}
+
+function openEditAgent(id) {
+  const a = [...agents, ...(window._allAgents||[])].find(x=>x.id===id);
+  if(!a) return;
+  editingAgent = id;
+  document.getElementById('agentModalTitle').textContent = 'تعديل مندوب';
+  document.getElementById('mName').value = a.name;
+  document.getElementById('mWa').value = a.whatsapp||'';
+  document.getElementById('mDays').value = a.working_days||26;
+  openModal('agentModal');
+}
+
+async function saveAgent() {
+  const name = document.getElementById('mName').value.trim();
+  const whatsapp = document.getElementById('mWa').value.trim();
+  const working_days = parseInt(document.getElementById('mDays').value)||26;
+  if(!name){ toast('أدخل اسم المندوب','fail'); return; }
+  loading(true);
+  try {
+    if(editingAgent) {
+      await db('agents','PATCH',{name,whatsapp,working_days},`?id=eq.${editingAgent}`);
+      toast('✅ تم تحديث المندوب','ok');
+    } else {
+      await db('agents','POST',{name,whatsapp,working_days,active:true});
+      toast('✅ تم إضافة المندوب','ok');
+    }
+    closeModal('agentModal');
+    await loadAdminAgents();
+    agents = await db('agents','GET',null,'?active=eq.true&order=name');
+  } catch(e) {
+    toast('❌ '+e.message,'fail');
+  }
+  loading(false);
+}
+
+async function delAgent(id) {
+  if(!confirm('هل تريد حذف هذا المندوب؟')) return;
+  loading(true);
+  try {
+    await db('agents','PATCH',{active:false},`?id=eq.${id}`);
+    toast('تم تعطيل المندوب','ok');
+    await loadAdminAgents();
+    agents = await db('agents','GET',null,'?active=eq.true&order=name');
+  } catch(e) { toast('❌ '+e.message,'fail'); }
+  loading(false);
+}
+
+/* ═══════════════════════════════════════
+   USERS CRUD
+═══════════════════════════════════════ */
+function openAddUser() {
+  editingUser = null;
+  document.getElementById('userModalTitle').textContent = 'إضافة مستخدم';
+  document.getElementById('muName').value='';
+  document.getElementById('muPass').value='';
+  openModal('userModal');
+}
+
+async function saveUser() {
+  const username = document.getElementById('muName').value.trim();
+  const password_hash = document.getElementById('muPass').value.trim();
+  if(!username||!password_hash){ toast('أدخل البيانات كاملة','fail'); return; }
+  loading(true);
+  try {
+    await db('users','POST',{username,password_hash,role:'admin'});
+    toast('✅ تم إضافة المستخدم','ok');
+    closeModal('userModal');
+    loadUsersTable();
+  } catch(e) { toast('❌ '+e.message,'fail'); }
+  loading(false);
+}
+
+async function delUser(id, name) {
+  if(name==='admin'){ toast('لا يمكن حذف المستخدم الرئيسي','fail'); return; }
+  if(!confirm(`حذف المستخدم "${name}"؟`)) return;
+  loading(true);
+  try {
+    await db('users','DELETE',null,`?id=eq.${id}`);
+    toast('تم الحذف','ok');
+    loadUsersTable();
+  } catch(e) { toast('❌ '+e.message,'fail'); }
+  loading(false);
+}
+
+/* ═══════════════════════════════════════
+   BOOT
+═══════════════════════════════════════ */
+window.addEventListener('load', () => {
+  // Register Service Worker
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('sw.js').catch(()=>{});
+  }
+
+  const saved = localStorage.getItem('gm_me');
+  if(saved) {
+    try { me = JSON.parse(saved); startApp(); }
+    catch(_) { localStorage.removeItem('gm_me'); }
+  }
+});
+
+// PWA Install
+let deferredPrompt = null;
+window.addEventListener('beforeinstallprompt', e => {
+  e.preventDefault();
+  deferredPrompt = e;
+  const btn = document.getElementById('installBtn');
+  if (btn) btn.style.display = 'flex';
+});
+
+async function installApp() {
+  if (!deferredPrompt) {
+    toast('التطبيق مثبت بالفعل أو المتصفح لا يدعم التثبيت', 'warn');
+    return;
+  }
+  deferredPrompt.prompt();
+  const result = await deferredPrompt.userChoice;
+  if (result.outcome === 'accepted') {
+    toast('✅ تم تثبيت التطبيق!', 'ok');
+  }
+  deferredPrompt = null;
+  document.getElementById('installBtn').style.display = 'none';
+}
+
+window.addEventListener('appinstalled', () => {
+  toast('✅ تم تثبيت التطبيق بنجاح!', 'ok');
+  const btn = document.getElementById('installBtn');
+  if (btn) btn.style.display = 'none';
+});
+</script>
+</body>
+</html>
